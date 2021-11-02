@@ -25,8 +25,8 @@ CREATE TABLE "posts" (
 	"summary" TEXT NOT NULL,
 	"title" TEXT NOT NULL,
 	"body" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL,
-	"updatedAt" timestamptz NOT NULL,
+	"createdAt" timestamptz NOT NULL default now(),
+	"updatedAt" timestamptz NOT NULL default now(),
 	CONSTRAINT "posts_pk" PRIMARY KEY ("postId")
 ) WITH (
   OIDS=FALSE
@@ -38,7 +38,7 @@ CREATE TABLE "comments" (
 	"postId" integer NOT NULL,
 	"userId" integer NOT NULL,
 	"content" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL
+	"createdAt" timestamptz NOT NULL default now()
 ) WITH (
   OIDS=FALSE
 );

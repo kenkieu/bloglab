@@ -19,14 +19,14 @@ app.use(jsonMiddleware);
 app.post('/api/posts', (req, res, next) => {
   const { imageUrl, summary, title, body } = req.body;
   if (!imageUrl || !summary || !title || !body) {
-    throw new ClientError(400, 'imageUrl, summary, title and body are required fields');
+    throw new ClientError(400, 'userId, imageUrl, summary, title and body are required fields');
   }
   const sql = `
-    insert into "posts" ("imageUrl", "summary", "title", "body")
-    values ($1, $2, $3, $4)
-    returning "imageUrl", "summary", "title", "body", "createdAt"
+    insert into "posts" ("userId", "imageUrl", "summary", "title", "body")
+    values ($1, $2, $3, $4, $5)
+    returning *
   `;
-  const params = [imageUrl, summary, title, body];
+  const params = [1, imageUrl, summary, title, body];
   db.query(sql, params)
     .then(result => {
       const [newPost] = result.rows;

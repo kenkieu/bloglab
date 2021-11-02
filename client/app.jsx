@@ -1,12 +1,14 @@
 import React from 'react';
-import Home from './pages/home';
-import Form from './pages/form';
+import Form from './components/form';
+import Nav from './components/navbar';
 
 export default class App extends React.Component {
   render() {
-    // return <Home />;
     return (
+      <>
+      <Nav />
       <Form />
+      </>
     );
   }
 }
