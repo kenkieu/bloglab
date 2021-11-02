@@ -28,15 +28,15 @@ class Form extends React.Component {
                 <img className="form-preview-img" src={!this.state.imageUrl ? 'images/placeholder.png' : this.state.imageUrl} alt="image" />
             </div>
             <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={this.handleChange} id="image-url" type="text" name="imageUrl" className="validate" />
+              <input required onChange={this.handleChange} id="image-url" type="text" name="imageUrl"/>
               <label htmlFor="image-url">Image URL</label>
             </div>
             <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={this.handleChange} id="summary" type="text" name="summary" className="validate" />
+              <input required onChange={this.handleChange} id="summary" type="text" name="summary"/>
               <label htmlFor="summary">Summary</label>
             </div>
             <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={this.handleChange} id="title" type="text" name="title" className="validate" />
+              <input required onChange={this.handleChange} id="title" type="text" name="title"/>
               <label htmlFor="title">Title</label>
             </div>
           <div className="row">
@@ -82,12 +82,12 @@ class Form extends React.Component {
     fetch('/api/posts', req)
       .then(res => res.json())
       .then(data => {
-        this.setState = {
+        this.setState({
           imageUrl: '',
           summary: '',
           title: '',
           body: ''
-        };
+        });
       })
       .catch(err => console.error(err));
   }
