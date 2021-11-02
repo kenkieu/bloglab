@@ -1,0 +1,16 @@
+img {
+  width: 100%;
+}
+
+.mb-two-rem {
+  margin-bottom: 2rem;
+}
+
+.mt-two-rem {
+  margin-top: 2rem;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
