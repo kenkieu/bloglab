@@ -33,14 +33,12 @@ app.post('/api/posts', (req, res, next) => {
     .then(result => {
       const [newPost] = result.rows;
       res.status(201).json(newPost);
-      console.log('newpost:', newPost);
     })
     .catch(err => next(err));
 });
 
 app.get('/api/posts/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
-  console.log(postId);
   if (!postId) {
     throw new ClientError(400, 'postId must be a positive integer');
   }

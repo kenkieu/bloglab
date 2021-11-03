@@ -14,8 +14,7 @@ class Form extends React.Component {
   }
 
   render() {
-    return (
-      <>
+    return <>
       <div className="container">
         <div className="row">
           <div className="col s12">
@@ -60,8 +59,7 @@ class Form extends React.Component {
           </div>
         </form>
       </div>
-      </>
-    );
+      </>;
   }
 
   handleChange(event) {
