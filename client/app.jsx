@@ -18,13 +18,13 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     console.log(route);
-    // if (route.path === '') {
-    return <Form />;
-    // }
-    // if (route.path === 'post') {
-    //   const postId = route.params.get('postId');
-    //   return <Blog postId={postId} />;
-    // }
+    if (route.path === '') {
+      return <Form />;
+    }
+    if (route.path === 'post') {
+      const postId = route.params.get('postId');
+      return <Blog postId={postId} />;
+    }
   }
 
   render() {
