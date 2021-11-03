@@ -13,6 +13,8 @@ const db = new pg.Pool({
 });
 
 const app = express();
+app.use(staticMiddleware);
+
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
@@ -31,11 +33,40 @@ app.post('/api/posts', (req, res, next) => {
     .then(result => {
       const [newPost] = result.rows;
       res.status(201).json(newPost);
+      console.log('newpost:', newPost);
     })
     .catch(err => next(err));
 });
 
-app.use(staticMiddleware);
+app.get('/api/posts/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  console.log(postId);
+  if (!postId) {
+    throw new ClientError(400, 'postId must be a positive integer');
+  }
+  const sql = `
+    select "imageUrl",
+           "summary",
+           "title",
+           "username",
+           "createdAt",
+           "body"
+    from "posts"
+    join "users" using ("userId")
+    where "postId" = $1
+  `;
+
+  const params = [postId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
 
 app.use(errorMiddleware);
 
