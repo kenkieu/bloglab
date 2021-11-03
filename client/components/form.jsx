@@ -25,7 +25,7 @@ class Form extends React.Component {
         <form onSubmit={this.handleSubmit} className="mt-two-rem">
           <div className="row">
             <div className="col s12 l6">
-                <img className="form-preview-img" src={!this.state.imageUrl ? 'images/placeholder.png' : this.state.imageUrl} alt="image" />
+                <img className="width-100" src={!this.state.imageUrl ? 'images/placeholder.png' : this.state.imageUrl} alt="image" />
             </div>
             <div className="input-field col s12 l6 mb-two-rem">
               <input required onChange={this.handleChange} id="image-url" type="text" name="imageUrl"/>
@@ -82,15 +82,18 @@ class Form extends React.Component {
     fetch('/api/posts', req)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        this.setState({
-          imageUrl: '',
-          summary: '',
-          title: '',
-          body: ''
-        });
+        window.location.hash = `post?postId=${data.postId}`;
       })
       .catch(err => console.error(err));
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      imageUrl: '',
+      summary: '',
+      title: '',
+      body: ''
+    });
   }
 }
 

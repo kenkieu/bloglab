@@ -1,6 +1,7 @@
 import React from 'react';
-import Form from './components/form';
 import Nav from './components/navbar';
+import Form from './components/form';
+import BlogView from './components/blogview';
 import parseRoute from './lib/parse-route';
 
 export default class App extends React.Component {
@@ -17,13 +18,12 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
-    console.log(route);
     if (route.path === '') {
       return <Form />;
     }
     if (route.path === 'post') {
       const postId = route.params.get('postId');
-      return <Blog postId={postId} />;
+      return <BlogView postId={ postId }/>;
     }
   }
 
