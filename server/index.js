@@ -80,7 +80,12 @@ app.get('/api/posts', (req, res, next) => {
     order by "postId" desc
   `;
   db.query(sql)
-    .then(result => res.json(result.rows))
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, 'no posts have been created');
+      }
+      res.json(result.rows);
+    })
     .catch(err => next(err));
 });
 
