@@ -66,6 +66,23 @@ app.get('/api/posts/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/posts', (req, res, next) => {
+  const sql = `
+    select "postId",
+           "imageUrl",
+           "summary",
+           "title",
+           "username",
+           "createdAt",
+           "body"
+    from "posts"
+    join "users" using ("userId")
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

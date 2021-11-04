@@ -2,10 +2,6 @@ body {
   font-family: Raleway, sans-serif;
 }
 
-.margin-center {
-  margin: 0 auto;
-}
-
 .width-100 {
   width: 100%;
 }
@@ -26,6 +22,11 @@ body {
 .flex-end {
   display: flex;
   justify-content: flex-end;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
 }
 
 .nav-icon-size {
@@ -54,7 +55,8 @@ body {
   margin: 0;
 }
 
-.blogpost h1 {
+.blogpost h1,
+.feed h1 {
   flex-basis: 100%;
   font-size: 2rem;
   font-weight: 600;

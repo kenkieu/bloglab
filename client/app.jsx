@@ -1,7 +1,8 @@
 import React from 'react';
 import Nav from './components/navbar';
-import Form from './components/form';
-import BlogView from './components/blogview';
+import Home from './pages/home';
+import Form from './pages/form';
+import BlogView from './pages/blogview';
 import parseRoute from './lib/parse-route';
 
 export default class App extends React.Component {
@@ -19,6 +20,9 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
+      return <Home />;
+    }
+    if (route.path === 'form') {
       return <Form />;
     }
     if (route.path === 'post') {
