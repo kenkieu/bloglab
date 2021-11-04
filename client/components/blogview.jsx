@@ -11,7 +11,7 @@ class BlogView extends React.Component {
   componentDidMount() {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
-      .then(post => this.setState({ post: post[0] }));
+      .then(post => this.setState({ post }));
   }
 
   render() {

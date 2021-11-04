@@ -61,7 +61,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
       if (!result.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
-      res.json(result.rows);
+      res.json(result.rows[0]);
     })
     .catch(err => next(err));
 });

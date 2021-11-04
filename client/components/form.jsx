@@ -84,15 +84,6 @@ class Form extends React.Component {
       })
       .catch(err => console.error(err));
   }
-
-  componentWillUnmount() {
-    this.setState({
-      imageUrl: '',
-      summary: '',
-      title: '',
-      body: ''
-    });
-  }
 }
 
 export default Form;
