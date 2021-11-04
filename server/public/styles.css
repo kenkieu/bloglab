@@ -2,7 +2,11 @@ body {
   font-family: Raleway, sans-serif;
 }
 
-.form-preview-img {
+.margin-center {
+  margin: 0 auto;
+}
+
+.width-100 {
   width: 100%;
 }
 
@@ -14,6 +18,11 @@ body {
   margin-top: 2rem;
 }
 
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .flex-end {
   display: flex;
   justify-content: flex-end;
@@ -21,4 +30,66 @@ body {
 
 .nav-icon-size {
   font-size: 2.5rem !important;
+}
+
+.blockquote-color {
+  flex-basis: 100%;
+  border-left: 5px solid #26a69a;
+}
+
+.light-grey-text {
+  color: #b0bec5;
+}
+
+.blogpost h3 {
+  flex-basis: 100%;
+  font-size: 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.blogpost h2 {
+  flex-basis: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.blogpost h1 {
+  flex-basis: 100%;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+
+@media only screen and (min-width: 993px) {
+  .blogpost p {
+    margin: 1rem 0;
+  }
+
+  .blockquote-color {
+    order: 3;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .blogpost p {
+    font-size: 1.15rem;
+    margin: 2rem 0;
+  }
+
+  .blockquote-color {
+    font-size: 1.15rem;
+  }
+
+  .blogpost h3 {
+    font-size: 1.25rem;
+  }
+
+  .blogpost h2 {
+    font-size: 1.5rem;
+  }
+
+  .blogpost h1 {
+    font-size: 2.5rem;
+  }
 }
