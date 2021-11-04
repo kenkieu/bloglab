@@ -2,12 +2,12 @@ body {
   font-family: Raleway, sans-serif;
 }
 
-.margin-center {
-  margin: 0 auto;
-}
-
 .width-100 {
   width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .mb-two-rem {
@@ -28,6 +28,16 @@ body {
   justify-content: flex-end;
 }
 
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
 .nav-icon-size {
   font-size: 2.5rem !important;
 }
@@ -39,6 +49,12 @@ body {
 
 .light-grey-text {
   color: #b0bec5;
+}
+
+.blogpost p,
+.blogpost blockquote {
+  line-height: 2.25rem;
+  white-space: pre-wrap;
 }
 
 .blogpost h3 {
@@ -54,11 +70,28 @@ body {
   margin: 0;
 }
 
-.blogpost h1 {
+.blogpost h1,
+.feed h1 {
   flex-basis: 100%;
   font-size: 2rem;
   font-weight: 600;
   margin: 1rem 0 0.5rem;
+}
+
+.feed h1 {
+  font-size: 2.5rem;
+}
+
+.btn-large {
+  margin: 2rem 0;
+}
+
+.no-results-text {
+  font-size: 2rem;
+}
+
+.no-results-icon {
+  width: 150px;
 }
 
 @media only screen and (min-width: 993px) {
