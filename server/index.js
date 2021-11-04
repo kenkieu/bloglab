@@ -77,6 +77,7 @@ app.get('/api/posts', (req, res, next) => {
            "body"
     from "posts"
     join "users" using ("userId")
+    order by "postId" desc
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
