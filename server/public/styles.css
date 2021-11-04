@@ -73,6 +73,14 @@ body {
   margin: 1rem 0 0.5rem;
 }
 
+.feed h1 {
+  font-size: 2.5rem;
+}
+
+.btn-large {
+  margin: 2rem 0;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;

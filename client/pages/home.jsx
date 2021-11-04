@@ -27,7 +27,7 @@ class Home extends React.Component {
             <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
           </div>
         </div>
-        <div className="row">
+        <div className="row flex-wrap">
           {this.state.posts.map(post => (
             <div key={post.postId} className="col s12 l6">
               <Post post={post} />
