@@ -16,12 +16,16 @@ class Home extends React.Component {
 
   render() {
     return <>
-      <div className="container feed flex-center flex-wrap">
-        <div className="row width-100">
-          <div className="col s12 l12">
-            <h1 className="flex-center">Your Feed</h1>
-          </div>
+    <div className="container feed flex-center flex-wrap">
+      <div className="row width-100">
+        <div className="col s12 l12">
+          <h1 className="flex-center">Your Feed</h1>
         </div>
+      </div>
+    </div>;
+      {!this.state.posts.length
+        ? NoResults()
+        : <>
         <div className="row width-100">
           <div className="col s6 l6">
             <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
@@ -32,9 +36,11 @@ class Home extends React.Component {
             <div key={post.postId} className="col s12 l6">
               <Post post={post} />
             </div>
-          ))}
+          ))
+          }
         </div>
-      </div>
+        </>
+      }
     </>;
   }
 }
@@ -55,6 +61,20 @@ function Post(props) {
       </div>
     </div>
     </>;
+}
+
+function NoResults() {
+  return <>
+    <div className="row width-100">
+      <div className="col s12 l12">
+        <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
+      </div>
+    </div>
+    <div className="row text-center">
+      <img className="no-results-icon" src="images/sad-cry-solid.svg" alt="no-results-image" />
+      <h1 className="no-results-text">Sorry, we couldn&apos;t find any results!</h1>
+    </div>
+  </>;
 }
 
 export default Home;
