@@ -50,6 +50,7 @@ body {
 .blogpost p,
 .blogpost blockquote {
   line-height: 2.25rem;
+  white-space: pre-wrap;
 }
 
 .blogpost h3 {
