@@ -24,6 +24,11 @@ body {
   justify-content: flex-end;
 }
 
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;
@@ -40,6 +45,11 @@ body {
 
 .light-grey-text {
   color: #b0bec5;
+}
+
+.blogpost p,
+.blogpost blockquote {
+  line-height: 2.25rem;
 }
 
 .blogpost h3 {

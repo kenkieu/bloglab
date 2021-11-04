@@ -17,15 +17,14 @@ class Home extends React.Component {
   render() {
     return <>
       <div className="container feed flex-center flex-wrap">
-        <div className="row">
-          <div>
+        <div className="row width-100">
+          <div className="col s12 l12">
             <h1 className="flex-center">Your Feed</h1>
           </div>
+        </div>
+        <div className="row width-100">
           <div className="col s6 l6">
-            <a href="#form" className="btn blue width-100">CREATE A POST</a>
-          </div>
-          <div className="col s6 l6">
-            <a className="btn grey darken-4 width-100">MY POSTS</a>
+            <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
           </div>
         </div>
         <div className="row">
