@@ -1,19 +1,10 @@
 import React from 'react';
-// import Moment from 'react-moment';
-// import 'moment-timezone';
-// import CommentForm from '../components/commentform';
-// import parseRoute from '../lib/parse-route';
+import CommentForm from '../components/commentform';
+import CommentList from '../components/commentlist';
 
 class CommentPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: []
-    };
-  }
 
   render() {
-
     return <>
     <div className="container">
       <div className="row">
@@ -22,6 +13,8 @@ class CommentPage extends React.Component {
         </div>
       </div>
     </div>
+      <CommentForm postId={this.props.postId} />
+      <CommentList postId={this.props.postId} />
     </>;
   }
 }

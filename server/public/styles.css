@@ -16,6 +16,14 @@ h3 {
   text-align: center;
 }
 
+.mt-half-rem {
+  margin-top: 0.5rem;
+}
+
+.mb-one-rem {
+  margin-bottom: 1rem;
+}
+
 .mb-two-rem {
   margin-bottom: 2rem;
 }
@@ -42,6 +50,11 @@ h3 {
 .flex-center {
   display: flex;
   justify-content: center;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-icon-size {
@@ -86,10 +99,6 @@ h3 {
   font-size: 2rem;
 }
 
-.btn-large {
-  margin: 2rem 0;
-}
-
 .no-results-text {
   font-size: 2rem;
 }
@@ -105,6 +114,19 @@ h3 {
 
 .comment-header {
   font-size: 2rem;
+}
+
+.comment-username {
+  font-weight: 600;
+}
+
+.comment-time-ago {
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.plr-three-fourth {
+  padding: 0 0.75rem;
 }
 
 @media only screen and (min-width: 993px) {
