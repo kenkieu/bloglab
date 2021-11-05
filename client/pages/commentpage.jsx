@@ -1,7 +1,7 @@
 import React from 'react';
 // import Moment from 'react-moment';
 // import 'moment-timezone';
-import CommentForm from '../components/commentform';
+// import CommentForm from '../components/commentform';
 // import parseRoute from '../lib/parse-route';
 
 class CommentPage extends React.Component {
@@ -9,19 +9,11 @@ class CommentPage extends React.Component {
     super(props);
     this.state = {
       comments: []
-      // route: parseRoute(window.location.hash)
     };
   }
 
-  // componentDidMount() {
-  //   window.addEventListener('hashchange', () => {
-  //     this.setState({ route: parseRoute(window.location.hash) });
-  //   });
-  // }
-
   render() {
-    // const { route } = this.state;
-    // const postId = parseRoute(route.params.get('postId'));
+
     return <>
     <div className="container">
       <div className="row">
@@ -30,7 +22,6 @@ class CommentPage extends React.Component {
         </div>
       </div>
     </div>
-    <CommentForm/>
     </>;
   }
 }

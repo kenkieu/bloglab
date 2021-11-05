@@ -1,13 +1,11 @@
 import React from 'react';
-import parseRoute from '../lib/parse-route';
 
-export default class CommentForm extends React.Component {
+class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: parseRoute(window.location.hash),
-      user: 1,
-      postId: '',
+      userId: 1,
+      postId: null,
       content: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -15,9 +13,7 @@ export default class CommentForm extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('hashchange', () => {
-      this.setState({ route: parseRoute(window.location.hash) });
-    });
+    this.setState({ postId: this.props.postId });
   }
 
   render() {
@@ -45,13 +41,7 @@ export default class CommentForm extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
-    const { route } = this.state;
-    console.log(window.location.hash);
-    const postPath = parseRoute(route.params.get('postId'));
-    const postId = postPath.path;
-    this.setState({ postId: Number(postId) });
-    const newComment = this.state.postId;
-    console.log(newComment);
+    const newComment = this.state;
     const req = {
       method: 'POST',
       headers: {
@@ -61,9 +51,8 @@ export default class CommentForm extends React.Component {
     };
     fetch('/api/comments', req)
       .then(res => res.json())
-      .then(data => {
-        console.log(data);
-      })
       .catch(err => console.error(err));
   }
 }
+
+export default CommentForm;

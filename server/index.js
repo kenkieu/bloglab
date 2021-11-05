@@ -93,6 +93,7 @@ app.post('/api/comments', (req, res, next) => {
   const sql = `
     insert into "comments" ("postId", "userId", "content")
     values ($1, $2, $3)
+    returning *
   `;
   const params = [postId, userId, content];
 
@@ -100,6 +101,27 @@ app.post('/api/comments', (req, res, next) => {
     .then(result => {
       const [newComment] = result.rows;
       res.status(201).json(newComment);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/comments/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const sql = `
+    select "username",
+           "content",
+           "createdAt"
+    from "comments"
+    join "users" using ("userId")
+    where "postId" = $1
+  `;
+  const params = [postId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });
