@@ -2,6 +2,12 @@ body {
   font-family: Raleway, sans-serif;
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
 .width-100 {
   width: 100%;
 }
@@ -66,7 +72,6 @@ body {
 .blogpost h2 {
   flex-basis: 100%;
   font-size: 1.25rem;
-  font-weight: 600;
   margin: 0;
 }
 
@@ -74,12 +79,11 @@ body {
 .feed h1 {
   flex-basis: 100%;
   font-size: 2rem;
-  font-weight: 600;
   margin: 1rem 0 0.5rem;
 }
 
 .feed h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .btn-large {
@@ -92,6 +96,15 @@ body {
 
 .no-results-icon {
   width: 150px;
+}
+
+.comment-icon {
+  font-size: 2rem;
+  color: #212121;
+}
+
+.comment-header {
+  font-size: 2rem;
 }
 
 @media only screen and (min-width: 993px) {

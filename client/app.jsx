@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Form from './pages/form';
 import BlogView from './pages/blogview';
 import parseRoute from './lib/parse-route';
+import CommentPage from './pages/commentpage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,10 @@ export default class App extends React.Component {
     if (route.path === 'post') {
       const postId = route.params.get('postId');
       return <BlogView postId={ postId }/>;
+    }
+    if (route.path === 'comments') {
+      const postId = route.params.get('postId');
+      return <CommentPage postId={postId}/>;
     }
   }
 

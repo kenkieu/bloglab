@@ -84,6 +84,26 @@ app.get('/api/posts', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/comments', (req, res, next) => {
+  // console.log(req.body);
+  const { postId, userId, content } = req.body;
+  if (!postId || !userId || !content) {
+    throw new ClientError(400, 'postId, userId, and content are required fields');
+  }
+  const sql = `
+    insert into "comments" ("postId", "userId", "content")
+    values ($1, $2, $3)
+  `;
+  const params = [postId, userId, content];
+
+  db.query(sql, params)
+    .then(result => {
+      const [newComment] = result.rows;
+      res.status(201).json(newComment);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

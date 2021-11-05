@@ -17,7 +17,6 @@ class BlogView extends React.Component {
   render() {
     if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body } = this.state.post;
-
     return <>
         <div className="container blogpost">
           <div className="row">
@@ -33,6 +32,12 @@ class BlogView extends React.Component {
             <div className="col s12 flex-wrap">
               <p>{body}</p>
             </div>
+          </div>
+          <hr />
+          <div className="row">
+          <a href={`#comments?postId=${this.props.postId}`}>
+              <i className="far fa-comment comment-icon"></i>
+            </a>
           </div>
         </div>;
         </>;
