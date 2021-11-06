@@ -89,22 +89,33 @@ app.get('/api/posts', (req, res, next) => {
 });
 
 app.post('/api/comments', (req, res, next) => {
-  // console.log(req.body);
   const { postId, userId, content } = req.body;
   if (!postId || !userId || !content) {
     throw new ClientError(400, 'postId, userId, and content are required fields');
   }
-  const sql = `
+  const firstSql = `
     insert into "comments" ("postId", "userId", "content")
     values ($1, $2, $3)
     returning *
   `;
-  const params = [postId, userId, content];
+  const secondSql = `
+    select "username"
+    from "users"
+    where "userId" = $1
+  `;
+  const firstParams = [postId, userId, content];
+  const secondParams = [userId];
 
-  db.query(sql, params)
-    .then(result => {
-      const [newComment] = result.rows;
-      res.status(201).json(newComment);
+  db.query(firstSql, firstParams)
+    .then(firstResult => {
+      return db.query(secondSql, secondParams)
+        .then(secondResult => {
+          const [commentData] = firstResult.rows;
+          const [username] = secondResult.rows;
+          const newComment = { ...commentData, ...username };
+          res.status(201).json(newComment);
+        })
+        .catch(err => next(err));
     })
     .catch(err => next(err));
 });
