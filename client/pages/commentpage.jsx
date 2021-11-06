@@ -28,7 +28,8 @@ class CommentPage extends React.Component {
   componentDidMount() {
     fetch(`/api/comments/${this.props.postId}`)
       .then(res => res.json())
-      .then(comments => this.setState({ comments }))
+      .then(comments => this.setState({ comments }
+      ))
       .catch(err => console.error(err));
   }
 
@@ -43,8 +44,10 @@ class CommentPage extends React.Component {
     fetch('/api/comments', req)
       .then(res => res.json())
       .then(data => {
+        const prevState = this.state.comments.slice();
+        const newState = [data, ...prevState];
         this.setState({
-          comments: this.state.comments.concat(data)
+          comments: newState
         });
       })
       .catch(err => console.error(err));
