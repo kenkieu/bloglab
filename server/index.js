@@ -43,15 +43,19 @@ app.get('/api/posts/:postId', (req, res, next) => {
     throw new ClientError(400, 'postId must be a positive integer');
   }
   const sql = `
-    select "imageUrl",
-           "summary",
-           "title",
-           "username",
-           "createdAt",
-           "body"
-    from "posts"
-    join "users" using ("userId")
-    where "postId" = $1
+    select "p"."postId",
+           "p"."imageUrl",
+           "p"."summary",
+           "p"."title",
+           "u"."username",
+           "p"."createdAt",
+           "p"."body",
+           count("c".*) as "totalComments"
+    from "posts" as "p"
+    join "users" as "u" using ("userId")
+    left join "comments" as "c" using ("postId")
+    where "p"."postId" = $1
+    group by "p"."postId", "u"."username"
   `;
 
   const params = [postId];

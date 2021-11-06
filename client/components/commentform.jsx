@@ -21,11 +21,11 @@ class CommentForm extends React.Component {
     <div className="container">
       <form>
         <div className="input-field col s12 l12">
-          <input required onChange={this.handleChange} id="comment" type="text" name="content" />
+          <input required onChange={this.handleChange} id="comment" type="text" name="content" value={this.state.content} />
           <label htmlFor="comment">Leave a comment if you&apos;d like...</label>
         </div>
         <div className="col s12 l12 width-100">
-            <button onClick={this.handleSubmit} className="btn-large blue width-100 mb-two-rem " type="submit" name="action">Submit</button>
+          <button onClick={this.handleSubmit} className="btn-large blue width-100 mb-two-rem " type="submit" name="action">Submit</button>
         </div>
       </form>
     </div>
@@ -37,19 +37,12 @@ class CommentForm extends React.Component {
     this.setState({ [event.target.name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault();
     const newComment = this.state;
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newComment)
-    };
-    fetch('/api/comments', req)
-      .then(res => res.json())
-      .catch(err => console.error(err));
+    this.props.onSubmit(newComment);
+    //
+    this.setState({ content: '' });
   }
 }
 

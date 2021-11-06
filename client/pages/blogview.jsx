@@ -15,7 +15,7 @@ class BlogView extends React.Component {
 
   render() {
     if (!this.state.post) return null;
-    const { imageUrl, summary, title, username, createdAt, body } = this.state.post;
+    const { imageUrl, summary, title, username, createdAt, body, totalComments } = this.state.post;
     const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
     return <>
         <div className="container blogpost">
@@ -33,14 +33,14 @@ class BlogView extends React.Component {
               <p>{body}</p>
             </div>
           </div>
-          <hr />
+          <hr className="mb-one-rem"/>
           <div className="row">
-          <div className="justify-between plr-three-fourth">
-            <a href={`#comments?postId=${this.props.postId}`}>
+          <div className="justify-between align-center plr-three-fourth">
+            <a className="font-two-rem" href={`#comments?postId=${this.props.postId}`}>
               <i className="far fa-comment comment-icon"></i>
             </a>
-            <a href={`#comments?postId=${this.props.postId}`}>
-               {'Comments'}
+            <a className="font-bold" href={`#comments?postId=${this.props.postId}`}>
+               {`${totalComments} Comments`}
             </a>
             </div>
           </div>

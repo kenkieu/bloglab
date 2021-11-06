@@ -57,6 +57,11 @@ h3 {
   justify-content: space-between;
 }
 
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
 .nav-icon-size {
   font-size: 2.5rem !important;
 }
@@ -107,16 +112,15 @@ h3 {
   width: 150px;
 }
 
-.comment-icon {
+.font-two-rem {
   font-size: 2rem;
+}
+
+a {
   color: #212121;
 }
 
-.comment-header {
-  font-size: 2rem;
-}
-
-.comment-username {
+.font-bold {
   font-weight: 600;
 }
 
