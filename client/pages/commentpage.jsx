@@ -8,6 +8,7 @@ class CommentPage extends React.Component {
     this.state = {
       comments: []
     };
+    this.addComment = this.addComment.bind(this);
   }
 
   render() {
@@ -42,12 +43,13 @@ class CommentPage extends React.Component {
     fetch('/api/comments', req)
       .then(res => res.json())
       .then(data => {
-        // this.setState({
-        //   comments: this.state.comments.concat(data)
-        // });
+        this.setState({
+          comments: this.state.comments.concat(data)
+        });
       })
       .catch(err => console.error(err));
   }
+
 }
 
 export default CommentPage;
