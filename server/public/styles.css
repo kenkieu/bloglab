@@ -2,12 +2,26 @@ body {
   font-family: Raleway, sans-serif;
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
 .width-100 {
   width: 100%;
 }
 
 .text-center {
   text-align: center;
+}
+
+.mt-half-rem {
+  margin-top: 0.5rem;
+}
+
+.mb-one-rem {
+  margin-bottom: 1rem;
 }
 
 .mb-two-rem {
@@ -38,6 +52,16 @@ body {
   justify-content: center;
 }
 
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
 .nav-icon-size {
   font-size: 2.5rem !important;
 }
@@ -66,7 +90,6 @@ body {
 .blogpost h2 {
   flex-basis: 100%;
   font-size: 1.25rem;
-  font-weight: 600;
   margin: 0;
 }
 
@@ -74,16 +97,11 @@ body {
 .feed h1 {
   flex-basis: 100%;
   font-size: 2rem;
-  font-weight: 600;
   margin: 1rem 0 0.5rem;
 }
 
 .feed h1 {
-  font-size: 2.5rem;
-}
-
-.btn-large {
-  margin: 2rem 0;
+  font-size: 2rem;
 }
 
 .no-results-text {
@@ -92,6 +110,27 @@ body {
 
 .no-results-icon {
   width: 150px;
+}
+
+.font-two-rem {
+  font-size: 2rem;
+}
+
+a {
+  color: #212121;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.comment-time-ago {
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.plr-three-fourth {
+  padding: 0 0.75rem;
 }
 
 @media only screen and (min-width: 993px) {

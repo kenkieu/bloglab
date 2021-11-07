@@ -43,15 +43,19 @@ app.get('/api/posts/:postId', (req, res, next) => {
     throw new ClientError(400, 'postId must be a positive integer');
   }
   const sql = `
-    select "imageUrl",
-           "summary",
-           "title",
-           "username",
-           "createdAt",
-           "body"
-    from "posts"
-    join "users" using ("userId")
-    where "postId" = $1
+    select "p"."postId",
+           "p"."imageUrl",
+           "p"."summary",
+           "p"."title",
+           "u"."username",
+           "p"."createdAt",
+           "p"."body",
+           count("c".*) as "totalComments"
+    from "posts" as "p"
+    join "users" as "u" using ("userId")
+    left join "comments" as "c" using ("postId")
+    where "p"."postId" = $1
+    group by "p"."postId", "u"."username"
   `;
 
   const params = [postId];
@@ -81,6 +85,59 @@ app.get('/api/posts', (req, res, next) => {
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
+app.post('/api/comments', (req, res, next) => {
+  const { postId, userId, content } = req.body;
+  if (!postId || !userId || !content) {
+    throw new ClientError(400, 'postId, userId, and content are required fields');
+  }
+  const firstSql = `
+    insert into "comments" ("postId", "userId", "content")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const secondSql = `
+    select "username"
+    from "users"
+    where "userId" = $1
+  `;
+  const firstParams = [postId, userId, content];
+  const secondParams = [userId];
+
+  db.query(firstSql, firstParams)
+    .then(firstResult => {
+      return db.query(secondSql, secondParams)
+        .then(secondResult => {
+          const [commentData] = firstResult.rows;
+          const [username] = secondResult.rows;
+          const newComment = { ...commentData, ...username };
+          res.status(201).json(newComment);
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/comments/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const sql = `
+    select "username",
+           "content",
+           "createdAt"
+    from "comments"
+    join "users" using ("userId")
+    where "postId" = $1
+  `;
+  const params = [postId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      res.json(result.rows);
+    })
     .catch(err => next(err));
 });
 

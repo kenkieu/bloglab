@@ -1,6 +1,5 @@
 import React from 'react';
-import Moment from 'react-moment';
-import 'moment-timezone';
+import { format } from 'date-fns';
 
 class BlogView extends React.Component {
   constructor(props) {
@@ -16,8 +15,8 @@ class BlogView extends React.Component {
 
   render() {
     if (!this.state.post) return null;
-    const { imageUrl, summary, title, username, createdAt, body } = this.state.post;
-
+    const { imageUrl, summary, title, username, createdAt, body, totalComments } = this.state.post;
+    const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
     return <>
         <div className="container blogpost">
           <div className="row">
@@ -28,10 +27,21 @@ class BlogView extends React.Component {
               <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
               <h1>{title}</h1>
               <h2 className="light-grey-text">by {username}</h2>
-              <h3 className="light-grey-text">posted on {<Moment format="MMM DD YYYY">{createdAt}</Moment>}</h3>
+              <h3 className="light-grey-text">posted on {formattedDate}</h3>
             </div>
             <div className="col s12 flex-wrap">
               <p>{body}</p>
+            </div>
+          </div>
+          <hr className="mb-one-rem"/>
+          <div className="row">
+          <div className="justify-between align-center plr-three-fourth">
+            <a className="font-two-rem" href={`#comments?postId=${this.props.postId}`}>
+              <i className="far fa-comment comment-icon"></i>
+            </a>
+            <a className="font-bold" href={`#comments?postId=${this.props.postId}`}>
+               {`${totalComments} Comments`}
+            </a>
             </div>
           </div>
         </div>;

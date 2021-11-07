@@ -46,9 +46,9 @@ class Form extends React.Component {
           </div>
           <div className="row">
             <div className="col s6">
-              <button className="btn waves-effect waves-light grey darken-2">Cancel
+              <a href="#" className="btn waves-effect waves-light grey darken-2">Cancel
                 <i className="material-icons right">cancel</i>
-              </button>
+              </a>
             </div>
             <div className="col s6 flex-end">
               <button className="btn waves-effect waves-light" type="submit">Submit

@@ -28,7 +28,7 @@ class Home extends React.Component {
         : <>
         <div className="row width-100">
           <div className="col s6 l6">
-            <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
+              <a href="#form" className="mb-one-rem btn-large blue width-100">CREATE A POST</a>
           </div>
         </div>
         <div className="row flex-wrap">
