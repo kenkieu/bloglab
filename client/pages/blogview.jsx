@@ -21,7 +21,6 @@ class BlogView extends React.Component {
         fetch(`api/likes/${this.props.postId}`)
           .then(res => res.json())
           .then(likes => {
-            console.log(likes);
             const { totalLikes, userLiked } = likes;
             const post = { ...postInfo, totalLikes, userLiked };
             this.setState({ post });
@@ -32,7 +31,6 @@ class BlogView extends React.Component {
   }
 
   toggleLike() {
-    console.log(this.state.post.userLiked);
     const { postId, userId, userLiked } = this.state.post;
     const newLike = {
       postId: postId,

@@ -166,23 +166,20 @@ app.post('/api/likes', (req, res, next) => {
 
 app.get('/api/likes/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
-  const sql = `
+  const firstSql = `
     select count("l".*) as "totalLikes"
     from "likePosts" as "l"
     where "postId" = $1
     `;
-  //
   const secondSql = `
     select count("l".*) > 0 as "userLiked"
     from "likePosts" as "l"
     where "postId" = $1 and "userId" = $2
   `;
-
+  const firstParams = [postId];
   const secondParams = [postId, 1];
-  //
-  const params = [postId];
 
-  db.query(sql, params)
+  db.query(firstSql, firstParams)
     .then(firstResult => {
       if (!firstResult.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
@@ -196,7 +193,8 @@ app.get('/api/likes/:postId', (req, res, next) => {
           const [userLiked] = secondResult.rows;
           const likeData = { ...totalLikes, ...userLiked };
           res.json(likeData);
-        });
+        })
+        .catch(err => next(err));
     }).catch(err => next(err));
 });
 
@@ -204,10 +202,10 @@ app.delete('/api/likes/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
   const sql = `
     delete from "likePosts"
-    where "userId" = $1
+    where "postId" = $1 and "userId" = $2
     returning *
   `;
-  const params = [1];
+  const params = [postId, 1];
 
   db.query(sql, params)
     .then(result => {
@@ -215,7 +213,8 @@ app.delete('/api/likes/:postId', (req, res, next) => {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
       res.status(204).json(result.rows);
-    }).then(data => console.log(data));
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
