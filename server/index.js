@@ -141,6 +141,66 @@ app.get('/api/comments/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/likes', (req, res, next) => {
+  const { postId, userId } = req.body;
+  if (!postId || !userId) {
+    throw new ClientError(400, 'postId and userId are required fields');
+  }
+  const sql = `
+    insert into "likePosts" ("postId", "userId")
+    values ($1, $2)
+    on conflict do nothing
+    returning *
+  `;
+
+  const params = [postId, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      const [newLike] = result.rows;
+      res.status(201).json(newLike);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/likes/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const sql = `
+    select count("l".*) as totalLikes
+    from "likePosts" as "l"
+    where "postId" = $1
+    `;
+
+  const params = [postId];
+
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      res.json(result.rows)
+        .catch(err => next(err));
+    });
+});
+
+app.delete('/api/likes/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const sql = `
+    delete from "likePosts"
+    where "userId" = $1
+    returning *
+  `;
+  const params = [1];
+
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      res.status(204).json(result.rows);
+    }).then(data => console.log(data));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

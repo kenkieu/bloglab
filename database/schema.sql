@@ -46,8 +46,8 @@ CREATE TABLE "comments" (
 
 
 CREATE TABLE "likePosts" (
-	"postId" integer NOT NULL,
-	"userId" integer NOT NULL
+	"postId" integer NOT NULL UNIQUE,
+	"userId" integer NOT NULL UNIQUE
 ) WITH (
   OIDS=FALSE
 );
