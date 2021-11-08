@@ -44,6 +44,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
   }
   const sql = `
     select "p"."postId",
+           "u"."userId",
            "p"."imageUrl",
            "p"."summary",
            "p"."title",
@@ -55,7 +56,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
     join "users" as "u" using ("userId")
     left join "comments" as "c" using ("postId")
     where "p"."postId" = $1
-    group by "p"."postId", "u"."username"
+    group by "p"."postId", "u"."username", "u"."userId"
   `;
 
   const params = [postId];
@@ -166,7 +167,7 @@ app.post('/api/likes', (req, res, next) => {
 app.get('/api/likes/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
   const sql = `
-    select count("l".*) as totalLikes
+    select count("l".*) as "totalLikes"
     from "likePosts" as "l"
     where "postId" = $1
     `;
@@ -178,9 +179,8 @@ app.get('/api/likes/:postId', (req, res, next) => {
       if (!result.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
-      res.json(result.rows)
-        .catch(err => next(err));
-    });
+      res.json(result.rows);
+    }).catch(err => next(err));
 });
 
 app.delete('/api/likes/:postId', (req, res, next) => {
