@@ -11,14 +11,19 @@ class BlogView extends React.Component {
   }
 
   componentDidMount() {
+    this.getLikes();
+  }
+
+  getLikes() {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
         fetch(`api/likes/${this.props.postId}`)
           .then(res => res.json())
           .then(likes => {
-            const [totalLikes] = likes;
-            const post = { ...postInfo, ...totalLikes };
+            console.log(likes);
+            const { totalLikes, userLiked } = likes;
+            const post = { ...postInfo, totalLikes, userLiked };
             this.setState({ post });
           });
 
@@ -27,24 +32,35 @@ class BlogView extends React.Component {
   }
 
   toggleLike() {
-    const { postId, userId } = this.state.post;
+    console.log(this.state.post.userLiked);
+    const { postId, userId, userLiked } = this.state.post;
     const newLike = {
       postId: postId,
       userId: userId
     };
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newLike)
-    };
-    fetch('/api/likes', req)
-      .then(res => {
-        console.log(res);
-        res.json();
-      })
-      .catch(err => console.err(err));
+
+    if (userLiked) {
+      const req = {
+        method: 'DELETE'
+      };
+      fetch(`/api/likes/${postId}`, req)
+        .catch(err => console.error(err));
+      this.getLikes();
+    } else {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newLike)
+      };
+      fetch('/api/likes', req)
+        .then(res => {
+          res.json();
+        })
+        .catch(err => console.error(err));
+      this.getLikes();
+    }
   }
 
   render() {
@@ -72,7 +88,9 @@ class BlogView extends React.Component {
           <div className="justify-between align-center plr-three-fourth">
             <div>
               <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
-                <i className="far fa-heart"></i>
+                {!this.state.post.userLiked
+                  ? <i className="far fa-heart"></i>
+                  : <i className="fas fa-heart heart-color"></i>}
               </a>
             <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
                 <i className="far fa-comment comment-icon"></i>

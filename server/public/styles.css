@@ -145,6 +145,10 @@ a {
   cursor: pointer;
 }
 
+.heart-color {
+  color: #ef5350;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;
