@@ -23,6 +23,7 @@ class Home extends React.Component {
         </div>
       </div>
     </div>;
+    <div className="container">
       {!this.state.posts.length
         ? NoResults()
         : <>
@@ -41,6 +42,7 @@ class Home extends React.Component {
         </div>
         </>
       }
+    </div>
     </>;
   }
 }

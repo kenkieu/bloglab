@@ -133,6 +133,22 @@ a {
   padding: 0 0.75rem;
 }
 
+.mr-third-rem {
+  margin-right: 0.75rem;
+}
+
+.ml-third-rem {
+  margin-left: 0.75rem;
+}
+
+.click-target {
+  cursor: pointer;
+}
+
+.heart-color {
+  color: #ef5350;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;

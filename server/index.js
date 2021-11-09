@@ -44,6 +44,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
   }
   const sql = `
     select "p"."postId",
+           "u"."userId",
            "p"."imageUrl",
            "p"."summary",
            "p"."title",
@@ -55,7 +56,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
     join "users" as "u" using ("userId")
     left join "comments" as "c" using ("postId")
     where "p"."postId" = $1
-    group by "p"."postId", "u"."username"
+    group by "p"."postId", "u"."username", "u"."userId"
   `;
 
   const params = [postId];
@@ -137,6 +138,78 @@ app.get('/api/comments/:postId', (req, res, next) => {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
       res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/likes', (req, res, next) => {
+  const { postId, userId } = req.body;
+  if (!postId || !userId) {
+    throw new ClientError(400, 'postId and userId are required fields');
+  }
+  const sql = `
+    insert into "likePosts" ("postId", "userId")
+    values ($1, $2)
+    on conflict do nothing
+    returning *
+  `;
+
+  const params = [postId, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      const [newLike] = result.rows;
+      res.status(201).json(newLike);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/likes/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const firstSql = `
+    select count("l".*) as "totalLikes"
+    from "likePosts" as "l"
+    where "postId" = $1
+    `;
+  const secondSql = `
+    select count("l".*) > 0 as "userLiked"
+    from "likePosts" as "l"
+    where "postId" = $1 and "userId" = $2
+  `;
+  const firstParams = [postId];
+  const secondParams = [postId, 1];
+
+  db.query(firstSql, firstParams)
+    .then(firstResult => {
+      if (!firstResult.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      return db.query(secondSql, secondParams)
+        .then(secondResult => {
+          if (!secondResult.rows) {
+            throw new ClientError(400, `cannot find post with postId ${postId}`);
+          }
+          const [totalLikes] = firstResult.rows;
+          const [userLiked] = secondResult.rows;
+          const likeData = { ...totalLikes, ...userLiked };
+          res.json(likeData);
+        })
+        .catch(err => next(err));
+    }).catch(err => next(err));
+});
+
+app.delete('/api/likes/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const sql = `
+    delete from "likePosts"
+    where "postId" = $1 and "userId" = $2
+    returning *
+  `;
+  const params = [postId, 1];
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(204).json(result.rows);
     })
     .catch(err => next(err));
 });

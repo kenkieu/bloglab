@@ -4,18 +4,67 @@ import { format } from 'date-fns';
 class BlogView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { post: null };
+    this.state = {
+      post: null
+    };
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
   componentDidMount() {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
-      .then(post => this.setState({ post }));
+      .then(postInfo => {
+        fetch(`api/likes/${this.props.postId}`)
+          .then(res => res.json())
+          .then(likes => {
+            const { userLiked } = likes;
+            const totalLikes = Number(likes.totalLikes);
+            const post = { ...postInfo, totalLikes, userLiked };
+            this.setState({ post });
+          })
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
+  }
+
+  toggleLike() {
+    const { postId, userId, userLiked } = this.state.post;
+    const newLike = {
+      postId: postId,
+      userId: userId
+    };
+
+    if (userLiked) {
+      const req = {
+        method: 'DELETE'
+      };
+      fetch(`/api/likes/${postId}`, req)
+        .catch(err => console.error(err));
+      this.setState(prevState => ({
+        post: { ...prevState.post, userLiked: false, totalLikes: this.state.post.totalLikes - 1 }
+      }));
+    } else {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newLike)
+      };
+      fetch('/api/likes', req)
+        .then(res => {
+          res.json();
+        })
+        .catch(err => console.error(err));
+      this.setState(prevState => ({
+        post: { ...prevState.post, userLiked: true, totalLikes: this.state.post.totalLikes + 1 }
+      }));
+    }
   }
 
   render() {
     if (!this.state.post) return null;
-    const { imageUrl, summary, title, username, createdAt, body, totalComments } = this.state.post;
+    const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
     const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
     return <>
         <div className="container blogpost">
@@ -36,12 +85,24 @@ class BlogView extends React.Component {
           <hr className="mb-one-rem"/>
           <div className="row">
           <div className="justify-between align-center plr-three-fourth">
-            <a className="font-two-rem" href={`#comments?postId=${this.props.postId}`}>
-              <i className="far fa-comment comment-icon"></i>
-            </a>
-            <a className="font-bold" href={`#comments?postId=${this.props.postId}`}>
-               {`${totalComments} Comments`}
-            </a>
+            <div>
+              <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
+                {!this.state.post.userLiked
+                  ? <i className="far fa-heart"></i>
+                  : <i className="fas fa-heart heart-color"></i>}
+              </a>
+            <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                <i className="far fa-comment comment-icon"></i>
+              </a>
+            </div>
+            <div className="font-bold">
+              <a className="mr-third-rem">
+                {`${totalLikes} Likes`}
+              </a>
+              <a className="ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                {`${totalComments} Comments`}
+              </a>
+            </div>
             </div>
           </div>
         </div>;
