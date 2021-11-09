@@ -11,21 +11,18 @@ class BlogView extends React.Component {
   }
 
   componentDidMount() {
-    this.getLikes();
-  }
-
-  getLikes() {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
         fetch(`api/likes/${this.props.postId}`)
           .then(res => res.json())
           .then(likes => {
-            const { totalLikes, userLiked } = likes;
+            const { userLiked } = likes;
+            const totalLikes = Number(likes.totalLikes);
             const post = { ...postInfo, totalLikes, userLiked };
             this.setState({ post });
-          });
-
+          })
+          .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
   }
@@ -43,7 +40,9 @@ class BlogView extends React.Component {
       };
       fetch(`/api/likes/${postId}`, req)
         .catch(err => console.error(err));
-      this.getLikes();
+      this.setState(prevState => ({
+        post: { ...prevState.post, userLiked: false, totalLikes: this.state.post.totalLikes - 1 }
+      }));
     } else {
       const req = {
         method: 'POST',
@@ -57,7 +56,9 @@ class BlogView extends React.Component {
           res.json();
         })
         .catch(err => console.error(err));
-      this.getLikes();
+      this.setState(prevState => ({
+        post: { ...prevState.post, userLiked: true, totalLikes: this.state.post.totalLikes + 1 }
+      }));
     }
   }
 

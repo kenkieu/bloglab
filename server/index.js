@@ -209,9 +209,6 @@ app.delete('/api/likes/:postId', (req, res, next) => {
 
   db.query(sql, params)
     .then(result => {
-      if (!result.rows) {
-        throw new ClientError(400, `cannot find post with postId ${postId}`);
-      }
       res.status(204).json(result.rows);
     })
     .catch(err => next(err));
