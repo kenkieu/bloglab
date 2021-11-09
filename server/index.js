@@ -1,6 +1,7 @@
 require('dotenv/config');
 const pg = require('pg');
 const express = require('express');
+const sgMail = require('@sendgrid/mail');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const ClientError = require('./client-error');
@@ -49,6 +50,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
            "p"."summary",
            "p"."title",
            "u"."username",
+           "u".email,
            "p"."createdAt",
            "p"."body",
            count("c".*) as "totalComments"
@@ -56,7 +58,7 @@ app.get('/api/posts/:postId', (req, res, next) => {
     join "users" as "u" using ("userId")
     left join "comments" as "c" using ("postId")
     where "p"."postId" = $1
-    group by "p"."postId", "u"."username", "u"."userId"
+    group by "p"."postId", "u"."username", "u"."userId", "u".email
   `;
 
   const params = [postId];
@@ -211,6 +213,27 @@ app.delete('/api/likes/:postId', (req, res, next) => {
     .then(result => {
       res.status(204).json(result.rows);
     })
+    .catch(err => next(err));
+});
+
+app.post('/api/email-share', (req, res, next) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const { title, summary, body, email } = req.body;
+  const msg = {
+    to: email,
+    from: 'ken.kieu@icloud.com',
+    subject: title,
+    text: body,
+    html: `
+      <strong>${title}</strong>
+      <br><br>
+      <em>${summary}</em>
+      <br>
+      <p>${body}</p>
+      <p>&copy;bloglab</p>
+    `
+  };
+  sgMail.send(msg)
     .catch(err => next(err));
 });
 

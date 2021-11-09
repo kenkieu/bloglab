@@ -5,10 +5,12 @@ class BlogView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      emailBtnClicked: false,
       post: null
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
+    this.emailPost = this.emailPost.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +70,31 @@ class BlogView extends React.Component {
       .catch(err => console.error('Failed to copy:', err));
   }
 
+  emailPost() {
+    this.setState({ emailBtnClicked: true });
+
+    const { title, summary, body, email } = this.state.post;
+
+    const sharePost = {
+      title: title,
+      summary: summary,
+      body: body,
+      email: email
+    };
+
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sharePost)
+    };
+
+    fetch('/api/email-share', req)
+      .then(res => res.json())
+      .catch(err => console.error(err));
+  }
+
   render() {
     if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
@@ -83,13 +110,23 @@ class BlogView extends React.Component {
               <h1>{title}</h1>
               <h2 className="light-grey-text">by {username}</h2>
               <h3 className="light-grey-text">posted on {formattedDate}</h3>
+              <div className="col s6 l6 share-btn pad-r-half-rem mt-one-rem">
+                {!this.state.emailBtnClicked
+                  ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
+                  <i className="fas fa-envelope share-icon"></i>
+                </a>
+                  : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
+                    <i className="fas fa-envelope-open share-icon"></i>
+                  </a>
+                  }
+              </div>
               <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pad-l-half-rem mt-one-rem">
-                <a className="waves-effect waves-light btn-large width-100 share-btn black">
+              <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
                   <i className="fas fa-link share-icon"></i>
                 </a>
               </div>
             </div>
-            <div className="col s12 flex-wrap">
+            <div className="col s12 flex-wrap mt-one-rem">
               <p>{body}</p>
             </div>
           </div>
