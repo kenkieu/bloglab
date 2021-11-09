@@ -8,6 +8,7 @@ class BlogView extends React.Component {
       post: null
     };
     this.toggleLike = this.toggleLike.bind(this);
+    this.copyPageUrl = this.copyPageUrl.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,11 @@ class BlogView extends React.Component {
     }
   }
 
+  copyPageUrl() {
+    navigator.clipboard.writeText(window.location.href)
+      .catch(err => console.error('Failed to copy:', err));
+  }
+
   render() {
     if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
@@ -77,6 +83,11 @@ class BlogView extends React.Component {
               <h1>{title}</h1>
               <h2 className="light-grey-text">by {username}</h2>
               <h3 className="light-grey-text">posted on {formattedDate}</h3>
+              <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pad-l-half-rem mt-one-rem">
+                <a className="waves-effect waves-light btn-large width-100 share-btn black">
+                  <i className="fas fa-link share-icon"></i>
+                </a>
+              </div>
             </div>
             <div className="col s12 flex-wrap">
               <p>{body}</p>
@@ -92,7 +103,7 @@ class BlogView extends React.Component {
                   : <i className="fas fa-heart heart-color"></i>}
               </a>
             <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                <i className="far fa-comment comment-icon"></i>
+                <i className="far fa-comment"></i>
               </a>
             </div>
             <div className="font-bold">

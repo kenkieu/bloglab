@@ -12,6 +12,14 @@ h3 {
   width: 100%;
 }
 
+.pad-l-half-rem {
+  padding: 0 0 0 0.5rem !important;
+}
+
+.pad-r-half-rem {
+  padding: 0 0.5rem 0 0 !important;
+}
+
 .text-center {
   text-align: center;
 }
@@ -22,6 +30,10 @@ h3 {
 
 .mb-one-rem {
   margin-bottom: 1rem;
+}
+
+.mt-one-rem {
+  margin-top: 1rem;
 }
 
 .mb-two-rem {
@@ -149,6 +161,10 @@ a {
   color: #ef5350;
 }
 
+.share-icon {
+  font-size: 2rem !important;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;
@@ -157,11 +173,15 @@ a {
   .blockquote-color {
     order: 3;
   }
+
+  .share-btn {
+    order: 4;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
   .blogpost p {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin: 2rem 0;
   }
 
@@ -179,5 +199,13 @@ a {
 
   .blogpost h1 {
     font-size: 2.5rem;
+  }
+
+  .pad-l-half-rem {
+    padding: 0 0 0 1rem !important;
+  }
+
+  .pad-r-half-rem {
+    padding: 0 1rem 0 0 !important;
   }
 }
