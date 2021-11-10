@@ -1,47 +1,66 @@
 import React from 'react';
+import AppContext from './lib/app-context';
+import parseRoute from './lib/parse-route';
+import decodeToken from './lib/decode-token';
 import Nav from './components/navbar';
 import Home from './pages/home';
 import Form from './pages/form';
 import BlogView from './pages/blogview';
-import parseRoute from './lib/parse-route';
 import CommentPage from './pages/commentpage';
+import AuthPage from './pages/auth-page';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { route: parseRoute(window.location.hash) };
+    this.state = {
+      user: null,
+      isAuthorizing: true,
+      route: parseRoute(window.location.hash)
+    };
   }
 
   componentDidMount() {
     window.addEventListener('hashchange', () => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? decodeToken(token) : null;
+    this.setState({ user, isAuthorizing: false });
   }
 
   renderPage() {
-    const { route } = this.state;
-    if (route.path === '') {
+    const { path, params } = this.state.route;
+
+    if (path === '') {
       return <Home />;
     }
-    if (route.path === 'form') {
+    if (path === 'sign-in' || path === 'sign-up') {
+      return <AuthPage />;
+    }
+    if (path === 'form') {
       return <Form />;
     }
-    if (route.path === 'post') {
-      const postId = route.params.get('postId');
+    if (path === 'post') {
+      const postId = params.get('postId');
       return <BlogView postId={ postId }/>;
     }
-    if (route.path === 'comments') {
-      const postId = route.params.get('postId');
+    if (path === 'comments') {
+      const postId = params.get('postId');
       return <CommentPage postId={postId}/>;
     }
   }
 
   render() {
+    if (this.state.isAuthorizing) return null;
+    const { user, route } = this.state;
+    const contextValue = { user, route };
     return (
+      <AppContext.Provider value={contextValue}>
       <>
         <Nav />
         { this.renderPage() }
       </>
+      </AppContext.Provider>
     );
   }
 }

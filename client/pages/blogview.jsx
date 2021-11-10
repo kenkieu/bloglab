@@ -110,7 +110,7 @@ class BlogView extends React.Component {
               <h1>{title}</h1>
               <h2 className="light-grey-text">by {username}</h2>
               <h3 className="light-grey-text">posted on {formattedDate}</h3>
-              <div className="col s6 l6 share-btn pad-r-half-rem mt-one-rem">
+              <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                 {!this.state.emailBtnClicked
                   ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
                   <i className="fas fa-envelope share-icon"></i>
@@ -120,7 +120,7 @@ class BlogView extends React.Component {
                   </a>
                   }
               </div>
-              <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pad-l-half-rem mt-one-rem">
+              <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
               <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
                   <i className="fas fa-link share-icon"></i>
                 </a>

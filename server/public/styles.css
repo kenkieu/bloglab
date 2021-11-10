@@ -12,12 +12,16 @@ h3 {
   width: 100%;
 }
 
-.pad-l-half-rem {
+.pl-half-rem {
   padding: 0 0 0 0.5rem !important;
 }
 
-.pad-r-half-rem {
+.pr-half-rem {
   padding: 0 0.5rem 0 0 !important;
+}
+
+.plr-three-fourth-rem {
+  padding: 0 0.75rem;
 }
 
 .text-center {
@@ -163,6 +167,15 @@ a {
 
 .share-icon {
   font-size: 2rem !important;
+}
+
+.auth-form h2 {
+  font-size: 2rem;
+}
+
+.auth-form a {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 @media only screen and (min-width: 993px) {
