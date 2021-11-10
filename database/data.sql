@@ -1,2 +1,2 @@
-insert into "users" ("username", "password", "email")
-values ('guest', 'guest', 'kenkieu93@gmail.com')
+insert into "users" ("username", "hashedPassword", "email")
+values ('Guest', 'password', 'kenkieu93@gmail.com')
