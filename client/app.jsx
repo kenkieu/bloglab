@@ -28,6 +28,12 @@ export default class App extends React.Component {
     this.setState({ user, isAuthorizing: false });
   }
 
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user });
+  }
+
   renderPage() {
     const { path, params } = this.state.route;
 
@@ -53,7 +59,8 @@ export default class App extends React.Component {
   render() {
     if (this.state.isAuthorizing) return null;
     const { user, route } = this.state;
-    const contextValue = { user, route };
+    const { handleSignIn } = this;
+    const contextValue = { user, route, handleSignIn };
     return (
       <AppContext.Provider value={contextValue}>
       <>

@@ -178,6 +178,14 @@ a {
   font-weight: 600;
 }
 
+.auth-form .blue-icon {
+  color: #2196f3;
+}
+
+.auth-form .green-icon {
+  color: #26a69a;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;
