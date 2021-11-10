@@ -76,12 +76,12 @@ class AuthForm extends React.Component {
             <label htmlFor="username">Username</label>
           </div>
           <div className="input-field col s12 l12">
-            <input required onChange={handleChange} name="password" id="password" type="password" />
+            <input required onChange={handleChange} name="password" id="password" type="password"/>
             <label htmlFor="password">Password</label>
           </div>
           {action === 'sign-up' &&
           <div className="input-field col s12 l12">
-            <input required onChange={handleChange} name="email" id="email" type="email" />
+            <input required onChange={handleChange} name="email" id="email" type="email"/>
             <label htmlFor="email">Email</label>
           </div>
           }
