@@ -221,7 +221,7 @@ app.post('/api/email-share', (req, res, next) => {
   const { title, summary, body, email } = req.body;
   const msg = {
     to: email,
-    from: 'ken.kieu@icloud.com',
+    from: process.env.SENDER_EMAIL,
     subject: title,
     text: body,
     html: `
@@ -234,6 +234,7 @@ app.post('/api/email-share', (req, res, next) => {
     `
   };
   sgMail.send(msg)
+    .then(res => res.json({ success: true }))
     .catch(err => next(err));
 });
 
