@@ -6,22 +6,17 @@ export default class Navbar extends React.Component {
     const { user, handleSignOut } = this.context;
     const { path } = this.context.route;
 
-    const userIcon = path === 'sign-up'
-      ? <a href="#sign-in">
-          <i className="fas fa-user-alt blue-icon right nav-icon" />
-        </a>
-      : <a href="#sign-up">
-          <i className="fas fa-user-alt green-icon right nav-icon" />
-        </a>;
-
     return <>
         <nav className="grey darken-4 mb-two-rem">
           <div className="nav-wrapper">
             <a href="#" className="brand-logo center">bloglab</a>
-            {user === null &&
-            <a href="#sign-in">
-              {userIcon}
-            </a>
+            {user === null && path === 'sign-up'
+              ? <a href="#sign-in">
+              <i className="fas fa-user-alt blue-icon right nav-icon" />
+              </a>
+              : <a href="#sign-up">
+              <i className="fas fa-user-alt green-icon right nav-icon" />
+             </a>
             }
             {user !== null &&
             < a href="#sign-in" onClick={handleSignOut}>
