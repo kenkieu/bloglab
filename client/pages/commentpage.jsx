@@ -54,7 +54,6 @@ class CommentPage extends React.Component {
       })
       .catch(err => console.error(err));
   }
-
 }
 
 export default CommentPage;

@@ -4,8 +4,7 @@ class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 1, // userId
-      postId: null,
+      postId: '',
       content: ''
     };
     this.handleChange = this.handleChange.bind(this);

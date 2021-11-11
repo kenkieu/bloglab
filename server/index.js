@@ -231,15 +231,15 @@ app.post('/api/likes', authorizationMiddleware, (req, res, next) => {
 
 app.get('/api/likes/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
-  const firstSql = `
+  const sql = `
     select count("l".*) as "totalLikes"
     from "likePosts" as "l"
     where "postId" = $1
     `;
 
-  const firstParams = [postId];
+  const params = [postId];
 
-  db.query(firstSql, firstParams)
+  db.query(sql, params)
     .then(firstResult => {
       if (!firstResult.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
@@ -254,15 +254,15 @@ app.get('/api/liked/:postId', authorizationMiddleware, (req, res, next) => {
   const postId = Number(req.params.postId);
   const { userId } = req.user;
 
-  const secondSql = `
+  const sql = `
     select count("l".*) > 0 as "userLiked"
     from "likePosts" as "l"
     where "postId" = $1 and "userId" = $2
   `;
 
-  const secondParams = [postId, userId];
+  const params = [postId, userId];
 
-  db.query(secondSql, secondParams)
+  db.query(sql, params)
     .then(secondResult => {
       if (!secondResult.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);

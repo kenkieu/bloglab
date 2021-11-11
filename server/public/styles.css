@@ -8,6 +8,10 @@ h3 {
   font-weight: 500;
 }
 
+a {
+  color: #212121;
+}
+
 .width-100 {
   width: 100%;
 }
@@ -133,10 +137,6 @@ h3 {
   font-size: 2rem;
 }
 
-a {
-  color: #212121;
-}
-
 .font-bold {
   font-weight: 600;
 }
@@ -152,6 +152,10 @@ a {
 
 .mr-third-rem {
   margin-right: 0.75rem;
+}
+
+.mr-one-rem {
+  margin-right: 1rem;
 }
 
 .ml-third-rem {
@@ -187,6 +191,19 @@ a {
   color: #26a69a;
 }
 
+.not-found img {
+  margin: 2.5rem 0;
+  width: 100%;
+}
+
+.not-found h3 {
+  font-size: 2rem;
+}
+
+.not-found .btn-large {
+  margin: 3rem 0 2.5rem;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;
@@ -198,6 +215,11 @@ a {
 
   .share-btn {
     order: 4;
+  }
+
+  .not-found img {
+    margin: 3rem 0;
+    max-width: 750px;
   }
 }
 

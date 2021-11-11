@@ -1,27 +1,18 @@
 import React from 'react';
 
-// const styles = {
-//   pageContent: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     minHeight: '100%'
-//   }
-// };
-
 export default function NotFound(props) {
   return (
-  // <div style={styles.pageContent}>
-      <div className="container">
-        <div className="row align-center">
-          <div className="col text-center mb-5">
-            <h3>
-              Uh oh, we could not find the page you were looking for!
-            </h3>
-            <p className="text-muted">
-              <a href="#">Return Home</a>
-            </p>
-          </div>
+      <div className="container not-found">
+      <div className="row flex-wrap" >
+        <div className="col s12 l12 flex-center">
+          <img src="images/404-image.png" alt="not-found-image" className="flex-center"/>
+        </div>
+        <div className="col s12 l12 text-center">
+          <h3>
+            Uh oh, we could not find the page you were looking for!
+          </h3>
+          <a href="#" className="btn-large grey darken-4">Return Home</a>
+        </div>
         </div>
       </div>
   // </div>
