@@ -6,6 +6,7 @@ const express = require('express');
 const sgMail = require('@sendgrid/mail');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
+const authorizationMiddleware = require('./authorization-middleware');
 const ClientError = require('./client-error');
 
 const db = new pg.Pool({
@@ -78,17 +79,18 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/posts', (req, res, next) => {
+app.post('/api/posts', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
   const { imageUrl, summary, title, body } = req.body;
   if (!imageUrl || !summary || !title || !body) {
-    throw new ClientError(400, 'userId, imageUrl, summary, title and body are required fields');
+    throw new ClientError(400, 'imageUrl, summary, title and body are required fields');
   }
   const sql = `
     insert into "posts" ("userId", "imageUrl", "summary", "title", "body")
     values ($1, $2, $3, $4, $5)
     returning *
   `;
-  const params = [1, imageUrl, summary, title, body];
+  const params = [userId, imageUrl, summary, title, body];
   db.query(sql, params)
     .then(result => {
       const [newPost] = result.rows;
@@ -150,8 +152,9 @@ app.get('/api/posts', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/comments', (req, res, next) => {
-  const { postId, userId, content } = req.body;
+app.post('/api/comments', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const { postId, content } = req.body;
   if (!postId || !userId || !content) {
     throw new ClientError(400, 'postId, userId, and content are required fields');
   }
@@ -185,12 +188,14 @@ app.post('/api/comments', (req, res, next) => {
 app.get('/api/comments/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
   const sql = `
-    select "username",
+    select "userId",
+           "username",
            "content",
            "createdAt"
     from "comments"
     join "users" using ("userId")
     where "postId" = $1
+    order by "createdAt" desc
   `;
   const params = [postId];
   db.query(sql, params)
@@ -203,8 +208,9 @@ app.get('/api/comments/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/likes', (req, res, next) => {
-  const { postId, userId } = req.body;
+app.post('/api/likes', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const { postId } = req.body;
   if (!postId || !userId) {
     throw new ClientError(400, 'postId and userId are required fields');
   }
@@ -214,9 +220,7 @@ app.post('/api/likes', (req, res, next) => {
     on conflict do nothing
     returning *
   `;
-
   const params = [postId, userId];
-
   db.query(sql, params)
     .then(result => {
       const [newLike] = result.rows;
@@ -225,6 +229,42 @@ app.post('/api/likes', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// app.get('/api/likes/:postId', authorizationMiddleware, (req, res, next) => {
+//   const postId = Number(req.params.postId);
+//   const { userId } = req.user;
+//   const firstSql = `
+//     select count("l".*) as "totalLikes"
+//     from "likePosts" as "l"
+//     where "postId" = $1
+//     `;
+//   const secondSql = `
+//     select count("l".*) > 0 as "userLiked"
+//     from "likePosts" as "l"
+//     where "postId" = $1 and "userId" = $2
+//   `;
+//   const firstParams = [postId];
+//   const secondParams = [postId, userId];
+
+//   db.query(firstSql, firstParams)
+//     .then(firstResult => {
+//       if (!firstResult.rows) {
+//         throw new ClientError(400, `cannot find post with postId ${postId}`);
+//       }
+//       return db.query(secondSql, secondParams)
+//         .then(secondResult => {
+//           if (!secondResult.rows) {
+//             throw new ClientError(400, `cannot find post with postId ${postId}`);
+//           }
+//           console.log('secondResult.rows:', secondResult.rows);
+//           const [totalLikes] = firstResult.rows;
+//           const [userLiked] = secondResult.rows;
+//           const likeData = { ...totalLikes, ...userLiked };
+//           res.json(likeData);
+//         })
+//         .catch(err => next(err));
+//     }).catch(err => next(err));
+// });
+
 app.get('/api/likes/:postId', (req, res, next) => {
   const postId = Number(req.params.postId);
   const firstSql = `
@@ -232,41 +272,52 @@ app.get('/api/likes/:postId', (req, res, next) => {
     from "likePosts" as "l"
     where "postId" = $1
     `;
-  const secondSql = `
-    select count("l".*) > 0 as "userLiked"
-    from "likePosts" as "l"
-    where "postId" = $1 and "userId" = $2
-  `;
+
   const firstParams = [postId];
-  const secondParams = [postId, 1];
 
   db.query(firstSql, firstParams)
     .then(firstResult => {
       if (!firstResult.rows) {
         throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
-      return db.query(secondSql, secondParams)
-        .then(secondResult => {
-          if (!secondResult.rows) {
-            throw new ClientError(400, `cannot find post with postId ${postId}`);
-          }
-          const [totalLikes] = firstResult.rows;
-          const [userLiked] = secondResult.rows;
-          const likeData = { ...totalLikes, ...userLiked };
-          res.json(likeData);
-        })
-        .catch(err => next(err));
-    }).catch(err => next(err));
+      const [totalLikes] = firstResult.rows;
+      res.json(totalLikes);
+    })
+    .catch(err => next(err));
 });
 
-app.delete('/api/likes/:postId', (req, res, next) => {
+app.get('/api/liked/:postId', authorizationMiddleware, (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const { userId } = req.user;
+
+  const secondSql = `
+    select count("l".*) > 0 as "userLiked"
+    from "likePosts" as "l"
+    where "postId" = $1 and "userId" = $2
+  `;
+
+  const secondParams = [postId, userId];
+
+  db.query(secondSql, secondParams)
+    .then(secondResult => {
+      if (!secondResult.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      }
+      const [userLiked] = secondResult.rows;
+      res.json(userLiked);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/likes/:postId', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
   const postId = Number(req.params.postId);
   const sql = `
     delete from "likePosts"
     where "postId" = $1 and "userId" = $2
     returning *
   `;
-  const params = [postId, 1];
+  const params = [postId, userId];
 
   db.query(sql, params)
     .then(result => {

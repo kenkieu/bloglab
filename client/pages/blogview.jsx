@@ -13,17 +13,55 @@ class BlogView extends React.Component {
     this.emailPost = this.emailPost.bind(this);
   }
 
+  // componentDidMount() {
+  //   const jwtToken = localStorage.getItem('jwt-token');
+  //   fetch(`/api/posts/${this.props.postId}`)
+  //     .then(res => res.json())
+  //     .then(postInfo => {
+  //       const req = {
+  //         method: 'GET',
+  //         headers: {
+  //           'x-access-token': jwtToken
+  //         }
+  //       };
+  //       fetch(`api/likes/${this.props.postId}`, req)
+  //         .then(res => res.json())
+  //         .then(likes => {
+  //           const { userLiked } = likes;
+  //           const totalLikes = Number(likes.totalLikes);
+  //           const post = { ...postInfo, totalLikes, userLiked };
+  //           this.setState({ post });
+  //         })
+  //         .catch(err => console.error(err));
+  //     })
+  //     .catch(err => console.error(err));
+  // }
+
   componentDidMount() {
+    const jwtToken = localStorage.getItem('jwt-token');
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
         fetch(`api/likes/${this.props.postId}`)
           .then(res => res.json())
-          .then(likes => {
-            const { userLiked } = likes;
-            const totalLikes = Number(likes.totalLikes);
-            const post = { ...postInfo, totalLikes, userLiked };
-            this.setState({ post });
+          .then(data => {
+            const totalLikes = Number(data.totalLikes);
+            const post = { ...postInfo, totalLikes };
+            // this.setState({ post });
+            const req = {
+              method: 'GET',
+              headers: {
+                'x-access-token': jwtToken
+              }
+            };
+            fetch(`api/liked/${this.props.postId}`, req)
+              .then(res => res.json())
+              .then(data => {
+                const { userLiked } = data;
+                const post = { ...postInfo, userLiked, totalLikes };
+                this.setState({ post });
+              })
+              .catch(err => console.error(err));
           })
           .catch(err => console.error(err));
       })
@@ -31,7 +69,8 @@ class BlogView extends React.Component {
   }
 
   toggleLike() {
-    const { postId, userId, userLiked } = this.state.post;
+    const { userId, postId, userLiked } = this.state.post;
+    const jwtToken = localStorage.getItem('jwt-token');
     const newLike = {
       postId: postId,
       userId: userId
@@ -39,10 +78,14 @@ class BlogView extends React.Component {
 
     if (userLiked) {
       const req = {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'x-access-token': jwtToken
+        }
       };
       fetch(`/api/likes/${postId}`, req)
         .catch(err => console.error(err));
+
       this.setState(prevState => ({
         post: { ...prevState.post, userLiked: false, totalLikes: this.state.post.totalLikes - 1 }
       }));
@@ -50,7 +93,8 @@ class BlogView extends React.Component {
       const req = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': jwtToken
         },
         body: JSON.stringify(newLike)
       };
@@ -96,6 +140,7 @@ class BlogView extends React.Component {
   }
 
   render() {
+    console.log(this.state.post);
     if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
     const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
