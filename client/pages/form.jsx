@@ -4,6 +4,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: null,
       imageUrl: '',
       summary: '',
       title: '',
@@ -62,6 +63,10 @@ class Form extends React.Component {
       </>;
   }
 
+  componentDidMount() {
+    this.setState({ userId: this.props.userId });
+  }
+
   handleChange(event) {
     const value = event.target.value;
     this.setState({ [event.target.name]: value });
@@ -69,11 +74,13 @@ class Form extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
+    const jwtToken = localStorage.getItem('jwt-token');
     const newPost = this.state;
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token': jwtToken
       },
       body: JSON.stringify(newPost)
     };

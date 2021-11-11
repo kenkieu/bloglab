@@ -14,16 +14,28 @@ class BlogView extends React.Component {
   }
 
   componentDidMount() {
+    const jwtToken = localStorage.getItem('jwt-token');
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
         fetch(`api/likes/${this.props.postId}`)
           .then(res => res.json())
-          .then(likes => {
-            const { userLiked } = likes;
-            const totalLikes = Number(likes.totalLikes);
-            const post = { ...postInfo, totalLikes, userLiked };
-            this.setState({ post });
+          .then(data => {
+            const totalLikes = Number(data.totalLikes);
+            const req = {
+              method: 'GET',
+              headers: {
+                'x-access-token': jwtToken
+              }
+            };
+            fetch(`api/liked/${this.props.postId}`, req)
+              .then(res => res.json())
+              .then(data => {
+                const { userLiked } = data;
+                const post = { ...postInfo, userLiked, totalLikes };
+                this.setState({ post });
+              })
+              .catch(err => console.error(err));
           })
           .catch(err => console.error(err));
       })
@@ -31,7 +43,8 @@ class BlogView extends React.Component {
   }
 
   toggleLike() {
-    const { postId, userId, userLiked } = this.state.post;
+    const { userId, postId, userLiked } = this.state.post;
+    const jwtToken = localStorage.getItem('jwt-token');
     const newLike = {
       postId: postId,
       userId: userId
@@ -39,10 +52,14 @@ class BlogView extends React.Component {
 
     if (userLiked) {
       const req = {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'x-access-token': jwtToken
+        }
       };
       fetch(`/api/likes/${postId}`, req)
         .catch(err => console.error(err));
+
       this.setState(prevState => ({
         post: { ...prevState.post, userLiked: false, totalLikes: this.state.post.totalLikes - 1 }
       }));
@@ -50,14 +67,13 @@ class BlogView extends React.Component {
       const req = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': jwtToken
         },
         body: JSON.stringify(newLike)
       };
       fetch('/api/likes', req)
-        .then(res => {
-          res.json();
-        })
+        .then(res => res.json())
         .catch(err => console.error(err));
       this.setState(prevState => ({
         post: { ...prevState.post, userLiked: true, totalLikes: this.state.post.totalLikes + 1 }
@@ -113,15 +129,15 @@ class BlogView extends React.Component {
               <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                 {!this.state.emailBtnClicked
                   ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
-                  <i className="fas fa-envelope share-icon"></i>
-                </a>
+                    <i className="fas fa-envelope share-icon"></i>
+                    </a>
                   : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
                     <i className="fas fa-envelope-open share-icon"></i>
-                  </a>
+                    </a>
                   }
               </div>
               <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
-              <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
+                <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
                   <i className="fas fa-link share-icon"></i>
                 </a>
               </div>
@@ -139,7 +155,7 @@ class BlogView extends React.Component {
                   ? <i className="far fa-heart"></i>
                   : <i className="fas fa-heart heart-color"></i>}
               </a>
-            <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+              <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
                 <i className="far fa-comment"></i>
               </a>
             </div>
