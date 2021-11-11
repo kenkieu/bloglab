@@ -73,9 +73,7 @@ class BlogView extends React.Component {
         body: JSON.stringify(newLike)
       };
       fetch('/api/likes', req)
-        .then(res => {
-          res.json();
-        })
+        .then(res => res.json())
         .catch(err => console.error(err));
       this.setState(prevState => ({
         post: { ...prevState.post, userLiked: true, totalLikes: this.state.post.totalLikes + 1 }
