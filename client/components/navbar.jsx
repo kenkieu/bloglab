@@ -1,21 +1,30 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import Redirect from '../components/redirect';
 
 export default class Navbar extends React.Component {
   render() {
     const { user, handleSignOut } = this.context;
+    const { path } = this.context.route;
+
+    const userIcon = path === 'sign-up'
+      ? <a href="#sign-in">
+          <i className="fas fa-user-alt blue-icon right nav-icon" />
+        </a>
+      : <a href="#sign-up">
+          <i className="fas fa-user-alt green-icon right nav-icon" />
+        </a>;
 
     return <>
         <nav className="grey darken-4 mb-two-rem">
           <div className="nav-wrapper">
             <a href="#" className="brand-logo center">bloglab</a>
-
-            {/* {user === null &&
-              <Redirect to="" />
-            } */}
+            {user === null &&
+            <a href="#sign-in">
+              {userIcon}
+            </a>
+            }
             {user !== null &&
-            < a href="" onClick={handleSignOut}>
+            < a href="#sign-in" onClick={handleSignOut}>
               <i className="fas fa-sign-out-alt right nav-icon"></i>
             </a>
             }

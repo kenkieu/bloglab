@@ -50,14 +50,8 @@ class AuthForm extends React.Component {
       ? 'Register'
       : 'Log In';
     const authFormHeading = action === 'sign-up'
-      ? <>
-        <i className="fas fa-user-alt blue-icon pr-half-rem" />
-          Sign Up
-        </>
-      : <>
-        <i className="fas fa-user-alt green-icon pr-half-rem" />
-          Log In
-        </>;
+      ? 'Sign Up'
+      : 'Log In';
 
     const alternativeButtonColor = action === 'sign-up'
       ? 'btn btn-primary width-100 blue'

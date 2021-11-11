@@ -8,6 +8,7 @@ import Form from './pages/form';
 import BlogView from './pages/blogview';
 import CommentPage from './pages/commentpage';
 import AuthPage from './pages/auth-page';
+import NotFound from './pages/not-found';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -62,6 +63,7 @@ export default class App extends React.Component {
       const postId = params.get('postId');
       return <CommentPage postId={postId}/>;
     }
+    return <NotFound />;
   }
 
   render() {
