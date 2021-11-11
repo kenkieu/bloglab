@@ -126,10 +126,11 @@ app.get('/api/posts/:postId', (req, res, next) => {
 
   db.query(sql, params)
     .then(result => {
-      if (!result.rows) {
-        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      const [post] = result.rows;
+      if (!post) {
+        throw new ClientError(404, `cannot find post with postId ${postId}`);
       }
-      res.json(result.rows[0]);
+      res.json(post);
     })
     .catch(err => next(err));
 });
@@ -200,8 +201,9 @@ app.get('/api/comments/:postId', (req, res, next) => {
   const params = [postId];
   db.query(sql, params)
     .then(result => {
-      if (!result.rows) {
-        throw new ClientError(400, `cannot find post with postId ${postId}`);
+      const [comment] = result.rows;
+      if (!comment) {
+        throw new ClientError(404, `cannot find post with postId ${postId}`);
       }
       res.json(result.rows);
     })
@@ -240,11 +242,11 @@ app.get('/api/likes/:postId', (req, res, next) => {
   const params = [postId];
 
   db.query(sql, params)
-    .then(firstResult => {
-      if (!firstResult.rows) {
-        throw new ClientError(400, `cannot find post with postId ${postId}`);
+    .then(result => {
+      const [totalLikes] = result.rows;
+      if (!totalLikes) {
+        throw new ClientError(404, `cannot find post with postId ${postId}`);
       }
-      const [totalLikes] = firstResult.rows;
       res.json(totalLikes);
     })
     .catch(err => next(err));
@@ -263,11 +265,11 @@ app.get('/api/liked/:postId', authorizationMiddleware, (req, res, next) => {
   const params = [postId, userId];
 
   db.query(sql, params)
-    .then(secondResult => {
-      if (!secondResult.rows) {
-        throw new ClientError(400, `cannot find post with postId ${postId}`);
+    .then(result => {
+      const [userLiked] = result.rows;
+      if (userLiked === undefined) {
+        throw new ClientError(404, `cannot find post with postId ${postId}`);
       }
-      const [userLiked] = secondResult.rows;
       res.json(userLiked);
     })
     .catch(err => next(err));
