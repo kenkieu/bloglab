@@ -27,7 +27,7 @@ function Comment(props) {
     new Date()
   ) + ' ago';
   return <>
-    <span className="font-bold">{username}</span>
+    <span className="bold">{username}</span>
     <span className="comment-time-ago light-grey-text">{timeAgo}</span>
     <p className="mb-two-rem mt-half-rem">{content}</p>
   </>;

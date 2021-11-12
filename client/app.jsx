@@ -6,6 +6,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import Form from './pages/form';
 import BlogView from './pages/blogview';
+import EditForm from './pages/edit-form';
 import CommentPage from './pages/commentpage';
 import AuthPage from './pages/auth-page';
 import NotFound from './pages/not-found';
@@ -46,7 +47,7 @@ export default class App extends React.Component {
     const { path, params } = this.state.route;
 
     if (path === '') {
-      return <Home />;
+      return <Home user={this.state.user}/>;
     }
     if (path === 'sign-in' || path === 'sign-up') {
       return <AuthPage />;
@@ -57,11 +58,15 @@ export default class App extends React.Component {
     }
     if (path === 'post') {
       const postId = params.get('postId');
-      return <BlogView postId={postId}/>;
+      return <BlogView postId={postId} user={this.state.user}/>;
+    }
+    if (path === 'edit-post') {
+      const postId = params.get('postId');
+      return <EditForm postId={postId} />;
     }
     if (path === 'comments') {
       const postId = params.get('postId');
-      return <CommentPage postId={postId}/>;
+      return <CommentPage user={this.state.user} postId={postId}/>;
     }
     return <NotFound />;
   }

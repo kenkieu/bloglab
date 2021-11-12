@@ -32,12 +32,12 @@ class Form extends React.Component {
               <label htmlFor="image-url">Image URL</label>
             </div>
             <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={this.handleChange} id="summary" type="text" name="summary"/>
-              <label htmlFor="summary">Summary</label>
-            </div>
-            <div className="input-field col s12 l6 mb-two-rem">
               <input required onChange={this.handleChange} id="title" type="text" name="title"/>
               <label htmlFor="title">Title</label>
+            </div>
+            <div className="input-field col s12 l6 mb-two-rem">
+              <input required onChange={this.handleChange} id="summary" type="text" name="summary"/>
+              <label htmlFor="summary">Summary</label>
             </div>
           <div className="row">
             <div className="input-field col s12 l12 mb-two-rem">

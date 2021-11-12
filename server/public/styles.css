@@ -5,7 +5,7 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 a {
@@ -82,13 +82,53 @@ a {
   align-items: center;
 }
 
+.font-two-rem {
+  font-size: 2rem;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.plr-three-fourth {
+  padding: 0 0.75rem;
+}
+
+.mr-third-rem {
+  margin-right: 0.75rem;
+}
+
+.ml-third-rem {
+  margin-left: 0.75rem;
+}
+
+.mr-one-rem {
+  margin-right: 1rem;
+}
+
+.click-target {
+  cursor: pointer;
+}
+
+.heart-color {
+  color: #ef5350;
+}
+
+.blue-icon {
+  color: #2196f3;
+}
+
+.green-icon {
+  color: #26a69a;
+}
+
 .nav-icon {
   font-size: 2rem;
   margin-right: 1rem;
 }
 
 .blockquote-color {
-  flex-basis: 100%;
+  width: 100%;
   border-left: 5px solid #26a69a;
 }
 
@@ -103,42 +143,22 @@ a {
 }
 
 .blogpost h3 {
-  flex-basis: 100%;
+  width: 100%;
   font-size: 1rem;
   margin: 0.5rem 0 1rem;
 }
 
 .blogpost h2 {
-  flex-basis: 100%;
+  width: 100%;
   font-size: 1.25rem;
   margin: 0;
 }
 
 .blogpost h1,
 .feed h1 {
-  flex-basis: 100%;
+  width: 100%;
   font-size: 2rem;
   margin: 1rem 0 0.5rem;
-}
-
-.feed h1 {
-  font-size: 2rem;
-}
-
-.no-results-text {
-  font-size: 2rem;
-}
-
-.no-results-icon {
-  width: 150px;
-}
-
-.font-two-rem {
-  font-size: 2rem;
-}
-
-.font-bold {
-  font-weight: 600;
 }
 
 .comment-time-ago {
@@ -146,36 +166,8 @@ a {
   margin-left: 1rem;
 }
 
-.plr-three-fourth {
-  padding: 0 0.75rem;
-}
-
-.mr-third-rem {
-  margin-right: 0.75rem;
-}
-
-.mr-one-rem {
-  margin-right: 1rem;
-}
-
-.ml-third-rem {
-  margin-left: 0.75rem;
-}
-
-.click-target {
-  cursor: pointer;
-}
-
-.heart-color {
-  color: #ef5350;
-}
-
 .share-icon {
   font-size: 2rem !important;
-}
-
-.auth-form h2 {
-  font-size: 2rem;
 }
 
 .auth-form a {
@@ -183,29 +175,32 @@ a {
   font-weight: 600;
 }
 
-.blue-icon {
-  color: #2196f3;
-}
-
-.green-icon {
-  color: #26a69a;
-}
-
 .not-found img {
-  margin: 2.5rem 0;
   width: 100%;
 }
 
-.not-found h3 {
-  font-size: 2rem;
+.no-results img {
+  margin: 2.5rem 0;
+  width: 195px;
 }
 
-.not-found .btn-large {
+.not-found h1 {
+  margin: 0;
+}
+
+.not-found .btn-large,
+.no-results .btn-large {
   margin: 3rem 0 2.5rem;
 }
 
 .card-image .btn-floating {
   top: 1.25rem;
+}
+
+.card-username {
+  color: #b0bec5;
+  font-weight: 500;
+  margin-bottom: 0.5rem !important;
 }
 
 @media only screen and (min-width: 993px) {
@@ -222,7 +217,6 @@ a {
   }
 
   .not-found img {
-    margin: 3rem 0;
     max-width: 750px;
   }
 }
