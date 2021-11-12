@@ -6,6 +6,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import Form from './pages/form';
 import BlogView from './pages/blogview';
+import EditForm from './pages/edit-form';
 import CommentPage from './pages/commentpage';
 import AuthPage from './pages/auth-page';
 import NotFound from './pages/not-found';
@@ -58,6 +59,10 @@ export default class App extends React.Component {
     if (path === 'post') {
       const postId = params.get('postId');
       return <BlogView postId={postId}/>;
+    }
+    if (path === 'edit-post') {
+      const postId = params.get('postId');
+      return <EditForm postId={postId} />;
     }
     if (path === 'comments') {
       const postId = params.get('postId');

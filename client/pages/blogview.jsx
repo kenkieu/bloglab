@@ -159,7 +159,7 @@ class BlogView extends React.Component {
                 <i className="far fa-comment"></i>
               </a>
             </div>
-            <div className="font-bold">
+            <div className="bold">
               <a className="mr-third-rem">
                 {`${totalLikes} Likes`}
               </a>

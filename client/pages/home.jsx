@@ -35,10 +35,11 @@ class Home extends React.Component {
   }
 
   render() {
-    const btnText = this.state.showUserPosts === false
+    const { showUserPosts } = this.state;
+    const btnText = showUserPosts === false
       ? 'My Posts'
       : 'Your Feed';
-    const headerText = this.state.showUserPosts === false
+    const headerText = showUserPosts === false
       ? 'Your Feed'
       : 'My Posts';
 
@@ -46,7 +47,7 @@ class Home extends React.Component {
     <div className="container feed flex-center flex-wrap">
       <div className="row width-100">
         <div className="col s12 l12">
-            <h1 className="flex-center">{headerText}</h1>
+            <h1 className="flex-center font-two-rem">{headerText}</h1>
         </div>
       </div>
     </div>;
@@ -56,7 +57,7 @@ class Home extends React.Component {
         : <>
         <div className="row width-100">
           <div className="col s6 l6">
-            <a href="#form" className="mb-one-rem btn-large blue width-100">CREATE A POST</a>
+            <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
           </div>
           <div className="col s6 s6">
             <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
@@ -84,7 +85,7 @@ class Home extends React.Component {
 }
 
 function Post(props) {
-  const { postId, imageUrl, summary, title } = props.post;
+  const { postId, imageUrl, summary, title, username } = props.post;
 
   return <>
     <div className="card large">
@@ -95,6 +96,7 @@ function Post(props) {
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
+        <p className="card-username">by {username}</p>
         <p>{summary}</p>
       </div>
     </div>
@@ -102,19 +104,20 @@ function Post(props) {
 }
 
 function MyPost(props) {
-  const { postId, imageUrl, summary, title } = props.userPost;
+  const { postId, imageUrl, summary, title, username } = props.userPost;
   return <>
     <div className="card large">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
         </a>
-        <a className="btn-floating btn-large halfway-fab waves-effect waves-light blue">
+        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn-large halfway-fab waves-effect waves-light blue">
           <i className="material-icons">edit</i>
         </a>
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
+        <p className="card-username">{username}</p>
         <p>{summary}</p>
       </div>
     </div>
@@ -123,15 +126,17 @@ function MyPost(props) {
 
 function NoResults() {
   return <>
-    <div className="row width-100">
-      <div className="col s12 l12">
-        <a href="#form" className="btn-large blue width-100">CREATE A POST</a>
+      <div className="row flex-wrap no-results align-center" >
+        <div className="col s12 l12 flex-center">
+          <img src="images/magnifying-glass.png" alt="no-results-image" className="flex-center" />
+        </div>
+        <div className="col s12 l12 text-center">
+          <h1 className="font-two-rem">
+            Sorry, we couldn&apos;t find any results!
+          </h1>
+          <a href="#form" className="btn-large blue">NEW POST</a>
+        </div>
       </div>
-    </div>
-    <div className="row text-center">
-      <img className="no-results-icon" src="images/sad-cry-solid.svg" alt="no-results-image" />
-      <h1 className="no-results-text">Sorry, we couldn&apos;t find any results!</h1>
-    </div>
   </>;
 }
 

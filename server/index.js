@@ -135,6 +135,32 @@ app.get('/api/posts/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.put('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const postId = Number(req.params.postId);
+  const { imageUrl, summary, title, body } = req.body;
+  if (!imageUrl || !summary || !title || !body) {
+    throw new ClientError(400, 'imageUrl, summary, title and body are required fields');
+  }
+  const sql = `
+    update "posts"
+    set "userId" = $1,
+        "imageUrl" = $2,
+        "summary" = $3,
+        "title" = $4,
+        "body" = $5
+    where "postId" = $6
+    returning *
+  `;
+  const params = [userId, imageUrl, summary, title, body, postId];
+  db.query(sql, params)
+    .then(result => {
+      const [newPost] = result.rows;
+      res.status(201).json(newPost);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/posts', (req, res, next) => {
   const sql = `
     select "postId",
