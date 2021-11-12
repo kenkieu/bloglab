@@ -77,7 +77,8 @@ class EditForm extends React.Component {
         }, () => {
           M.updateTextFields();
         });
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   handleChange(event) {

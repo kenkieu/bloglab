@@ -55,14 +55,15 @@ class Home extends React.Component {
       {!this.state.posts.length
         ? NoResults()
         : <>
-        <div className="row width-100">
-          <div className="col s6 l6">
-            <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
+          {this.props.user && <div className="row width-100">
+            <div className="col s6 l6">
+              <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
+            </div>
+            <div className="col s6 s6">
+              <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
+            </div>
           </div>
-          <div className="col s6 s6">
-            <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
-          </div>
-        </div>
+          }
         <div className="row flex-wrap">
           {!this.state.showUserPosts
             ? this.state.posts.map(post => (
@@ -86,7 +87,6 @@ class Home extends React.Component {
 
 function Post(props) {
   const { postId, imageUrl, summary, title, username } = props.post;
-
   return <>
     <div className="card large">
       <div className="card-image">

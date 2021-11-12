@@ -47,7 +47,7 @@ export default class App extends React.Component {
     const { path, params } = this.state.route;
 
     if (path === '') {
-      return <Home />;
+      return <Home user={this.state.user}/>;
     }
     if (path === 'sign-in' || path === 'sign-up') {
       return <AuthPage />;
@@ -58,7 +58,7 @@ export default class App extends React.Component {
     }
     if (path === 'post') {
       const postId = params.get('postId');
-      return <BlogView postId={postId}/>;
+      return <BlogView postId={postId} user={this.state.user}/>;
     }
     if (path === 'edit-post') {
       const postId = params.get('postId');
@@ -66,7 +66,7 @@ export default class App extends React.Component {
     }
     if (path === 'comments') {
       const postId = params.get('postId');
-      return <CommentPage postId={postId}/>;
+      return <CommentPage user={this.state.user} postId={postId}/>;
     }
     return <NotFound />;
   }

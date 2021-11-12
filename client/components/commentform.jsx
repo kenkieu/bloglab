@@ -13,17 +13,19 @@ class CommentForm extends React.Component {
 
   render() {
     return <>
-    <div className="container">
+      {this.props.user &&
+      <div className="container">
         <form onSubmit={this.handleSubmit} >
-        <div className="input-field col s12 l12">
-          <input required onChange={this.handleChange} id="comment" type="text" name="content" value={this.state.content} />
-          <label htmlFor="comment">Leave a comment if you&apos;d like...</label>
-        </div>
-        <div className="col s12 l12 width-100">
-          <button className="btn-large blue width-100 mb-two-rem" type="submit" name="action">Submit</button>
-        </div>
-      </form>
-    </div>
+          <div className="input-field col s12 l12">
+            <input required onChange={this.handleChange} id="comment" type="text" name="content" value={this.state.content} />
+            <label htmlFor="comment">Leave a comment if you&apos;d like...</label>
+          </div>
+          <div className="col s12 l12 width-100">
+            <button className="btn-large blue width-100 mb-two-rem" type="submit" name="action">Submit</button>
+          </div>
+        </form>
+      </div>
+      }
     </>;
   }
 

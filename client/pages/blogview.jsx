@@ -131,9 +131,16 @@ class BlogView extends React.Component {
                   ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
                     <i className="fas fa-envelope share-icon"></i>
                     </a>
-                  : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
-                    <i className="fas fa-envelope-open share-icon"></i>
+                  : <>
+                    {this.props.user
+                      ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
+                      <i className="fas fa-envelope-open share-icon"></i>
                     </a>
+                      : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
+                      <i className="fas fa-envelope share-icon"></i>
+                    </a>
+                    }
+                    </>
                   }
               </div>
               <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
