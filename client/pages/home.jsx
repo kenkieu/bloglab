@@ -87,7 +87,7 @@ function Post(props) {
   const { postId, imageUrl, summary, title } = props.post;
 
   return <>
-    <div className="card custom-card-height">
+    <div className="card large">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
@@ -104,7 +104,7 @@ function Post(props) {
 function MyPost(props) {
   const { postId, imageUrl, summary, title } = props.userPost;
   return <>
-    <div className="card custom-card-height">
+    <div className="card large">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
