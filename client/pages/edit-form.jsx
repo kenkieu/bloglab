@@ -74,6 +74,8 @@ class EditForm extends React.Component {
           summary: summary,
           title: title,
           body: body
+        }, () => {
+          M.updateTextFields();
         });
       });
   }
