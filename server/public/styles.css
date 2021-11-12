@@ -204,6 +204,10 @@ a {
   margin: 3rem 0 2.5rem;
 }
 
+.card-image .btn-floating {
+  top: 1.25rem;
+}
+
 @media only screen and (min-width: 993px) {
   .blogpost p {
     margin: 1rem 0;
