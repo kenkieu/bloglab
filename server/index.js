@@ -153,6 +153,29 @@ app.get('/api/posts', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/my-posts', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    select "postId",
+           "imageUrl",
+           "summary",
+           "title",
+           "username",
+           "createdAt",
+           "body"
+    from "posts"
+    join "users" using ("userId")
+    where "userId" = $1
+    order by "postId" desc
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/comments', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   const { postId, content } = req.body;
@@ -201,9 +224,8 @@ app.get('/api/comments/:postId', (req, res, next) => {
   const params = [postId];
   db.query(sql, params)
     .then(result => {
-      const [comment] = result.rows;
-      if (!comment) {
-        throw new ClientError(404, `cannot find post with postId ${postId}`);
+      if (!result.rows) {
+        throw new ClientError(400, `cannot find post with postId ${postId}`);
       }
       res.json(result.rows);
     })
