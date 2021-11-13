@@ -161,8 +161,8 @@ app.put('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/posts/:postId', (req, res, next) => {
-  // const { userId } = req.user;
+app.delete('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
   const postId = Number(req.params.postId);
   const sql = `
     with "deleteLikes" as (
@@ -175,10 +175,10 @@ app.delete('/api/posts/:postId', (req, res, next) => {
       returning *
     )
     delete from "posts"
-    where "postId" = $1
+    where "postId" = $1 and "userId" = $2
     returning *
   `;
-  const params = [postId];
+  const params = [postId, userId];
   db.query(sql, params)
     .then(result => {
       const [post] = result.rows;
