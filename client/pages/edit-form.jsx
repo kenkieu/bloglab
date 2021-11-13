@@ -7,20 +7,43 @@ class EditForm extends React.Component {
       imageUrl: '',
       summary: '',
       title: '',
-      body: ''
+      body: '',
+      modalOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   render() {
-    const { imageUrl, summary, title, body } = this.state;
-    const { handleChange, handleSubmit } = this;
+    const { imageUrl, summary, title, body, modalOpen } = this.state;
+    const { handleChange, handleSubmit, handleDelete, closeModal, openModal } = this;
     return <>
+      {modalOpen &&
       <div className="container">
+        <div className="row modal-bg flex-center align-center">
+          <div className="custom-modal">
+            <div className="body">
+              <h4>Are you sure?</h4>
+              <p>Do you really want to delete this post? This action cannot be undone.</p>
+            </div>
+            <div className="justify-between footer">
+              <a onClick={closeModal} className="modal-close waves-effect waves-red btn-flat">Cancel</a>
+              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-green btn-flat">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      <div className="container edit-form">
         <div className="row">
-          <div className="col s12">
-            <h1 className="font-two-rem">Edit Blog</h1>
+          <div className="col s12 justify-between align-center">
+            <h1>Edit Blog</h1>
+            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red lighten-1">
+              <i className="material-icons trash-icon">delete</i>
+            </a>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="mt-two-rem">
@@ -81,6 +104,14 @@ class EditForm extends React.Component {
       .catch(err => console.error(err));
   }
 
+  openModal() {
+    this.setState({ modalOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalOpen: false });
+  }
+
   handleChange(event) {
     const value = event.target.value;
     this.setState({ [event.target.name]: value });
@@ -103,6 +134,19 @@ class EditForm extends React.Component {
       .then(data => {
         window.location.hash = `post?postId=${data.postId}`;
       })
+      .catch(err => console.error(err));
+  }
+
+  handleDelete() {
+    const jwtToken = localStorage.getItem('jwt-token');
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': jwtToken
+      }
+    };
+    fetch(`/api/posts/${this.props.postId}`, req)
       .catch(err => console.error(err));
   }
 }
