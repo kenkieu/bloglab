@@ -161,6 +161,35 @@ app.put('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const postId = Number(req.params.postId);
+  const sql = `
+    with "deleteLikes" as (
+      delete from "likePosts"
+      where "postId" = $1
+      returning *
+    ), "deleteComments" as (
+      delete from "comments"
+      where "postId" = $1
+      returning *
+    )
+    delete from "posts"
+    where "postId" = $1 and "userId" = $2
+    returning *
+  `;
+  const params = [postId, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [post] = result.rows;
+      if (!post) {
+        throw new ClientError(404, `cannot find post with postId ${postId}`);
+      }
+      res.status(204).json();
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/posts', (req, res, next) => {
   const sql = `
     select "postId",

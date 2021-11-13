@@ -16,10 +16,10 @@ class Form extends React.Component {
 
   render() {
     return <>
-      <div className="container">
+      <div className="container form">
         <div className="row">
           <div className="col s12">
-            <h4>Create Blog</h4>
+            <h1>Create Blog</h1>
           </div>
         </div>
         <form onSubmit={this.handleSubmit} className="mt-two-rem">
