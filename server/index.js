@@ -369,7 +369,6 @@ app.delete('/api/likes/:postId', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-//
 app.get('/api/email-share', authorizationMiddleware, (req, res, next) => {
   const { userId } = req.user;
   const sql = `
@@ -386,7 +385,6 @@ app.get('/api/email-share', authorizationMiddleware, (req, res, next) => {
       res.json(userEmail);
     });
 });
-//
 
 app.post('/api/email-share', (req, res, next) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
