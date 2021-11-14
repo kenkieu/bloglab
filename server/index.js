@@ -407,7 +407,9 @@ app.post('/api/email-share', (req, res, next) => {
     `
   };
   sgMail.send(msg)
-    .then(res => res.json({ success: true }))
+    .then(() => {
+      res.json({ success: true });
+    })
     .catch(err => next(err));
 });
 
