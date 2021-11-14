@@ -369,21 +369,43 @@ app.delete('/api/likes/:postId', authorizationMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+//
+app.get('/api/email-share', authorizationMiddleware, (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+  select "email"
+  from "users"
+  where "userId" = $1
+  `;
+
+  const params = [userId];
+
+  db.query(sql, params)
+    .then(result => {
+      const [userEmail] = result.rows;
+      res.json(userEmail);
+    });
+});
+//
+
 app.post('/api/email-share', (req, res, next) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const { title, summary, body, email } = req.body;
+  const { title, summary, body, email, username, totalLikes, totalComments } = req.body;
   const msg = {
     to: email,
     from: process.env.SENDER_EMAIL,
     subject: title,
     text: body,
     html: `
-      <strong>${title}</strong>
-      <br><br>
-      <em>${summary}</em>
-      <br>
-      <p>${body}</p>
-      <p>&copy;bloglab</p>
+    <div style="font-family:Roboto;">
+     <h1><strong>${title}</strong></h1>
+     <p style="color: grey;">by ${username}</p>
+     <p style="font-size:120%;"><em>${summary}</em></p>
+     <p style="font-size:120%;">${body}</p>
+     <p><strong>Likes: ${totalLikes} Comments: ${totalComments}</strong></p>
+     <hr>
+     <p><strong>&copy; 2021 bloglab</strong></p>
+    </div>
     `
   };
   sgMail.send(msg)

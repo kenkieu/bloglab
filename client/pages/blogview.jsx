@@ -6,7 +6,8 @@ class BlogView extends React.Component {
     super(props);
     this.state = {
       emailBtnClicked: false,
-      post: null
+      post: null,
+      viewerEmail: ''
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
@@ -15,6 +16,20 @@ class BlogView extends React.Component {
 
   componentDidMount() {
     const jwtToken = localStorage.getItem('jwt-token');
+    const firstReq = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': jwtToken
+      }
+    };
+    fetch('/api/email-share', firstReq)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ viewerEmail: data.email });
+      })
+      .catch(err => console.error(err));
+
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
@@ -88,14 +103,16 @@ class BlogView extends React.Component {
 
   emailPost() {
     this.setState({ emailBtnClicked: true });
-
-    const { title, summary, body, email } = this.state.post;
-
+    const { title, summary, body, username, totalLikes, totalComments } = this.state.post;
+    const { viewerEmail: email } = this.state;
     const sharePost = {
       title: title,
       summary: summary,
       body: body,
-      email: email
+      email: email,
+      username: username,
+      totalLikes: totalLikes,
+      totalComments: totalComments
     };
 
     const req = {
