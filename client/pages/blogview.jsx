@@ -75,7 +75,7 @@ class BlogView extends React.Component {
       fetch(`/api/likes/${postId}`, req)
         .catch(err => console.error(err));
 
-      this.setState(prevState => ({
+      this.props.user && this.setState(prevState => ({
         post: { ...prevState.post, userLiked: false, totalLikes: this.state.post.totalLikes - 1 }
       }));
     } else {
@@ -90,7 +90,7 @@ class BlogView extends React.Component {
       fetch('/api/likes', req)
         .then(res => res.json())
         .catch(err => console.error(err));
-      this.setState(prevState => ({
+      this.props.user && this.setState(prevState => ({
         post: { ...prevState.post, userLiked: true, totalLikes: this.state.post.totalLikes + 1 }
       }));
     }
