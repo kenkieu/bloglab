@@ -67,12 +67,12 @@ class Home extends React.Component {
         <div className="row flex-wrap">
           {!this.state.showUserPosts
             ? this.state.posts.map(post => (
-            <div key={post.postId} className="col s12 l6">
+              <div key={post.postId} className="col s12 l6 m-0">
               <Post post={post} />
             </div>
             ))
             : this.state.userPosts.map(userPost => (
-              <div key={userPost.postId} className="col s12 l6">
+              <div key={userPost.postId} className="col s12 l6 m-0">
               <MyPost userPost={userPost} />
             </div>
             ))

@@ -16,6 +16,10 @@ a {
   width: 100%;
 }
 
+.m-0 {
+  margin: 0 !important;
+}
+
 .pl-half-rem {
   padding: 0 0 0 0.5rem !important;
 }
