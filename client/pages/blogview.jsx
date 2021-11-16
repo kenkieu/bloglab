@@ -33,7 +33,7 @@ class BlogView extends React.Component {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
-        fetch(`api/likes/${this.props.postId}`)
+        fetch(`/api/likes/${this.props.postId}`)
           .then(res => res.json())
           .then(data => {
             const totalLikes = Number(data.totalLikes);
@@ -43,7 +43,7 @@ class BlogView extends React.Component {
                 'x-access-token': jwtToken
               }
             };
-            fetch(`api/liked/${this.props.postId}`, req)
+            fetch(`/api/liked/${this.props.postId}`, req)
               .then(res => res.json())
               .then(data => {
                 const { userLiked } = data;
