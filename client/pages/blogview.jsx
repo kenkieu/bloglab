@@ -33,7 +33,7 @@ class BlogView extends React.Component {
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
-        fetch(`api/likes/${this.props.postId}`)
+        fetch(`/api/likes/${this.props.postId}`)
           .then(res => res.json())
           .then(data => {
             const totalLikes = Number(data.totalLikes);
@@ -43,7 +43,7 @@ class BlogView extends React.Component {
                 'x-access-token': jwtToken
               }
             };
-            fetch(`api/liked/${this.props.postId}`, req)
+            fetch(`/api/liked/${this.props.postId}`, req)
               .then(res => res.json())
               .then(data => {
                 const { userLiked } = data;
@@ -175,12 +175,17 @@ class BlogView extends React.Component {
           <div className="justify-between align-center plr-three-fourth">
             <div>
               <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
-                {!this.state.post.userLiked
-                  ? <i className="far fa-heart"></i>
-                  : <i className="fas fa-heart heart-color"></i>}
+                {this.props.user
+                  ? !this.state.post.userLiked
+                      ? <i className="far fa-heart"></i>
+                      : <i className="fas fa-heart heart-color"></i>
+                  : <i className="fas fa-heart-broken grey-text"></i>
+                }
               </a>
               <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                <i className="far fa-comment"></i>
+                {this.props.user
+                  ? <i className="far fa-comment"></i>
+                  : <i className="fas fa-comment grey-text"></i>}
               </a>
             </div>
             <div className="bold">
