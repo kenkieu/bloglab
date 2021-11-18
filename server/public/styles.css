@@ -140,6 +140,10 @@ a {
   color: #b0bec5;
 }
 
+.grey-text {
+  color: #bdbdbd;
+}
+
 .blogpost p,
 .blogpost blockquote {
   line-height: 2.25rem;
