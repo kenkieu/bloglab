@@ -1,4 +1,5 @@
 import React from 'react';
+import NoResults from './no-results';
 
 class Home extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Home extends React.Component {
     </div>;
     <div className="container">
       {!this.state.posts.length
-        ? NoResults()
+        ? <NoResults user={this.props.user}/>
         : <>
           {this.props.user && <div className="row width-100">
             <div className="col s6 l6">
@@ -121,22 +122,6 @@ function MyPost(props) {
         <p>{summary}</p>
       </div>
     </div>
-  </>;
-}
-
-function NoResults() {
-  return <>
-      <div className="row flex-wrap no-results align-center" >
-        <div className="col s12 l12 flex-center">
-          <img src="images/magnifying-glass.png" alt="no-results-image" className="flex-center" />
-        </div>
-        <div className="col s12 l12 text-center">
-          <h1 className="font-two-rem">
-            Sorry, we couldn&apos;t find any results!
-          </h1>
-          <a href="#form" className="btn-large blue">NEW POST</a>
-        </div>
-      </div>
   </>;
 }
 
