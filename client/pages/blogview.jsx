@@ -7,7 +7,8 @@ class BlogView extends React.Component {
     this.state = {
       emailBtnClicked: false,
       post: null,
-      viewerEmail: ''
+      viewerEmail: '',
+      loading: false
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
@@ -30,6 +31,7 @@ class BlogView extends React.Component {
       })
       .catch(err => console.error(err));
 
+    this.setState({ loading: true });
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
@@ -55,6 +57,7 @@ class BlogView extends React.Component {
           .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
+    this.setState({ loading: false });
   }
 
   toggleLike() {
@@ -131,9 +134,20 @@ class BlogView extends React.Component {
   render() {
     if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
+    const { loading } = this.state;
     const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
     return <>
-        <div className="container blogpost">
+      {loading
+        ? <div className="container">
+            <div className="row">
+              <div className="col s12 l12">
+                <div className="progress">
+                  <div className="indeterminate"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        : <div className="container blogpost">
           <div className="row">
             <div className="col s12 l6 flex-wrap">
               <img src={imageUrl} alt="image" className="width-100" />
@@ -147,18 +161,18 @@ class BlogView extends React.Component {
                 {!this.state.emailBtnClicked
                   ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
                     <i className="fas fa-envelope share-icon"></i>
-                    </a>
+                  </a>
                   : <>
                     {this.props.user
                       ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
-                      <i className="fas fa-envelope-open share-icon"></i>
-                    </a>
+                        <i className="fas fa-envelope-open share-icon"></i>
+                      </a>
                       : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
-                      <i className="fas fa-envelope share-icon"></i>
-                    </a>
+                        <i className="fas fa-envelope share-icon"></i>
+                      </a>
                     }
-                    </>
-                  }
+                  </>
+                }
               </div>
               <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
                 <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
@@ -170,36 +184,37 @@ class BlogView extends React.Component {
               <p>{body}</p>
             </div>
           </div>
-          <hr className="mb-one-rem"/>
+          <hr className="mb-one-rem" />
           <div className="row">
-          <div className="justify-between align-center plr-three-fourth">
-            <div>
-              <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
-                {this.props.user
-                  ? !this.state.post.userLiked
-                      ? <i className="far fa-heart"></i>
-                      : <i className="fas fa-heart heart-color"></i>
-                  : <i className="fas fa-heart-broken grey-text"></i>
-                }
-              </a>
-              <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                {this.props.user
-                  ? <i className="far fa-comment"></i>
-                  : <i className="fas fa-comment grey-text"></i>}
-              </a>
-            </div>
-            <div className="bold">
-              <a className="mr-third-rem">
-                {`${totalLikes} Likes`}
-              </a>
-              <a className="ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                {`${totalComments} Comments`}
-              </a>
-            </div>
+            <div className="justify-between align-center plr-three-fourth">
+              <div>
+                <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
+                  {this.props.user
+                    ? !this.state.post.userLiked
+                        ? <i className="far fa-heart"></i>
+                        : <i className="fas fa-heart heart-color"></i>
+                    : <i className="fas fa-heart-broken grey-text"></i>
+                  }
+                </a>
+                <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                  {this.props.user
+                    ? <i className="far fa-comment"></i>
+                    : <i className="fas fa-comment grey-text"></i>}
+                </a>
+              </div>
+              <div className="bold">
+                <a className="mr-third-rem">
+                  {`${totalLikes} Likes`}
+                </a>
+                <a className="ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                  {`${totalComments} Comments`}
+                </a>
+              </div>
             </div>
           </div>
-        </div>;
-        </>;
+        </div>
+      }
+      </>;
   }
 }
 

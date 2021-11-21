@@ -7,15 +7,20 @@ class Home extends React.Component {
     this.state = {
       posts: [],
       userPosts: [],
-      showUserPosts: false
+      showUserPosts: false,
+      loading: false
     };
     this.togglePosts = this.togglePosts.bind(this);
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
     fetch('/api/posts')
       .then(res => res.json())
-      .then(posts => this.setState({ posts }))
+      .then(posts => {
+        this.setState({ posts });
+        this.setState({ loading: false });
+      })
       .catch(err => console.error(err));
 
     const jwtToken = localStorage.getItem('jwt-token');
@@ -27,7 +32,9 @@ class Home extends React.Component {
     };
     fetch('/api/my-posts', req)
       .then(res => res.json())
-      .then(userPosts => this.setState({ userPosts }))
+      .then(userPosts => {
+        this.setState({ userPosts });
+      })
       .catch(err => console.error(err));
   }
 
@@ -36,7 +43,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { showUserPosts } = this.state;
+    const { showUserPosts, loading } = this.state;
     const btnText = showUserPosts === false
       ? 'My Posts'
       : 'Your Feed';
@@ -48,7 +55,14 @@ class Home extends React.Component {
     <div className="container feed flex-center flex-wrap">
       <div className="row width-100">
         <div className="col s12 l12">
-            <h1 className="flex-center font-two-rem">{headerText}</h1>
+            <h1 className="flex-center font-two-rem">
+              {loading
+                ? <div className="progress">
+                  <div className="indeterminate"></div>
+                </div>
+                : headerText
+              }
+            </h1>
         </div>
       </div>
     </div>;
