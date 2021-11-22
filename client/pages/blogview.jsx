@@ -1,6 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import NotFound from './not-found';
+import ConnectionError from './connection-error';
 
 class BlogView extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class BlogView extends React.Component {
       emailBtnClicked: false,
       post: {},
       viewerEmail: '',
-      loading: false
+      loading: false,
+      error: false // Added error, and set value
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
@@ -53,12 +55,17 @@ class BlogView extends React.Component {
                 const post = { ...postInfo, userLiked, totalLikes };
                 this.setState({ post });
                 this.setState({ loading: false });
+                this.setState({ error: false }); // Added error, and set value
               })
               .catch(err => console.error(err));
           })
           .catch(err => console.error(err));
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({ loading: false });
+        this.setState({ error: true }); // Added error, and set value
+        console.error(err);
+      });
   }
 
   toggleLike() {
@@ -139,7 +146,8 @@ class BlogView extends React.Component {
     if (createdAt) {
       formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
     }
-    return <>
+    return (
+      <>
       <div className="container blogpost">
         {loading
           ? <div className="row">
@@ -152,7 +160,8 @@ class BlogView extends React.Component {
           : <>
           {this.state.post.error
             ? <NotFound />
-            : <>
+            : (
+              <>
               <div className="row">
                 <div className="col s12 l6 flex-wrap">
                   <img src={imageUrl} alt="image" className="width-100" />
@@ -164,17 +173,23 @@ class BlogView extends React.Component {
                   <h3 className="light-grey-text">posted on {formattedDate}</h3>
                   <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                     {!this.state.emailBtnClicked
-                      ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
-                        <i className="fas fa-envelope share-icon"></i>
-                      </a>
+                      ? (
+                        <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
+                          <i className="fas fa-envelope share-icon"></i>
+                        </a>
+                        )
                       : <>
                         {this.props.user
-                          ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
-                            <i className="fas fa-envelope-open share-icon"></i>
-                          </a>
-                          : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
-                            <i className="fas fa-envelope share-icon"></i>
-                          </a>
+                          ? (
+                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
+                              <i className="fas fa-envelope-open share-icon"></i>
+                            </a>
+                            )
+                          : (
+                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
+                              <i className="fas fa-envelope share-icon"></i>
+                            </a>
+                            )
                         }
                       </>
                     }
@@ -195,9 +210,10 @@ class BlogView extends React.Component {
                   <div>
                     <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
                       {this.props.user
-                        ? !this.state.post.userLiked
+                        ? (!this.state.post.userLiked
                             ? <i className="far fa-heart"></i>
                             : <i className="fas fa-heart heart-color"></i>
+                          )
                         : <i className="fas fa-heart-broken grey-text"></i>
                       }
                     </a>
@@ -218,11 +234,13 @@ class BlogView extends React.Component {
                 </div>
               </div>
             </>
+              )
           }
           </>
         }
       </div>
-      </>;
+      </>
+    );
   }
 }
 
