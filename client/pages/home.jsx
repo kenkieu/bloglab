@@ -55,14 +55,14 @@ class Home extends React.Component {
     <div className="container feed flex-center flex-wrap">
       <div className="row width-100">
         <div className="col s12 l12">
-            <h1 className="flex-center font-two-rem">
-              {loading
-                ? <div className="progress">
-                  <div className="indeterminate"></div>
-                </div>
-                : headerText
-              }
-            </h1>
+          <h1 className="flex-center font-two-rem">
+            {loading
+              ? <div className="progress">
+                <div className="indeterminate"></div>
+              </div>
+              : headerText
+            }
+          </h1>
         </div>
       </div>
     </div>;
