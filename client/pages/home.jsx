@@ -1,5 +1,6 @@
 import React from 'react';
 import NoResults from './no-results';
+import ConnectionError from './connection-error';
 
 class Home extends React.Component {
   constructor(props) {
@@ -8,20 +9,26 @@ class Home extends React.Component {
       posts: [],
       userPosts: [],
       showUserPosts: false,
-      loading: false
+      loading: false,
+      error: false
     };
     this.togglePosts = this.togglePosts.bind(this);
   }
 
   componentDidMount() {
     this.setState({ loading: true });
+    this.setState({ error: false });
     fetch('/api/posts')
       .then(res => res.json())
       .then(posts => {
         this.setState({ posts });
         this.setState({ loading: false });
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({ loading: false });
+        this.setState({ error: true });
+        console.error(err);
+      });
 
     const jwtToken = localStorage.getItem('jwt-token');
     const req = {
@@ -43,7 +50,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { showUserPosts, loading } = this.state;
+    const { showUserPosts, loading, error } = this.state;
     const btnText = showUserPosts === false
       ? 'My Posts'
       : 'Your Feed';
@@ -65,8 +72,10 @@ class Home extends React.Component {
             </div>
           </div>
           )
-        : (
-        <>
+        : error
+          ? <ConnectionError/>
+          : (
+          <>
           <div className="container feed flex-center flex-wrap">
             <div className="row width-100">
               <div className="col s12 l12">
@@ -106,8 +115,8 @@ class Home extends React.Component {
                 )
             }
           </div>
-        </>
-          )}
+          </>
+            )}
     </>
     );
   }

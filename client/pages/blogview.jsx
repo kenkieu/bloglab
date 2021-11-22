@@ -11,7 +11,7 @@ class BlogView extends React.Component {
       post: {},
       viewerEmail: '',
       loading: false,
-      error: false // Added error, and set value
+      error: false
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
@@ -35,6 +35,7 @@ class BlogView extends React.Component {
       .catch(err => console.error(err));
 
     this.setState({ loading: true });
+    this.setState({ error: false });
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
@@ -55,7 +56,6 @@ class BlogView extends React.Component {
                 const post = { ...postInfo, userLiked, totalLikes };
                 this.setState({ post });
                 this.setState({ loading: false });
-                this.setState({ error: false }); // Added error, and set value
               })
               .catch(err => console.error(err));
           })
@@ -63,7 +63,7 @@ class BlogView extends React.Component {
       })
       .catch(err => {
         this.setState({ loading: false });
-        this.setState({ error: true }); // Added error, and set value
+        this.setState({ error: true });
         console.error(err);
       });
   }
@@ -141,7 +141,7 @@ class BlogView extends React.Component {
 
   render() {
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
-    const { loading } = this.state;
+    const { loading, error } = this.state;
     let formattedDate;
     if (createdAt) {
       formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
@@ -157,7 +157,9 @@ class BlogView extends React.Component {
                 </div>
               </div>
             </div>
-          : <>
+          : error
+            ? <ConnectionError />
+            : <>
           {this.state.post.error
             ? <NotFound />
             : (
