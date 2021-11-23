@@ -1,6 +1,6 @@
 import React from 'react';
-import CommentForm from '../components/commentform';
-import CommentList from '../components/commentlist';
+import CommentForm from '../components/comment-form';
+import CommentList from '../components/comment-list';
 
 class CommentPage extends React.Component {
   constructor(props) {
