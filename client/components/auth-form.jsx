@@ -9,6 +9,7 @@ class AuthForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
   }
 
   handleChange(event) {
@@ -37,6 +38,24 @@ class AuthForm extends React.Component {
       });
   }
 
+  handleDemo(event) {
+    event.preventDefault();
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username: 'guest', password: 'guest' })
+    };
+    fetch('/api/auth/sign-in', req)
+      .then(res => res.json())
+      .then(result => {
+        if (result.user && result.token) {
+          this.props.onSignIn(result);
+        }
+      });
+  }
+
   render() {
     const { action } = this.props;
     const { handleChange, handleSubmit } = this;
@@ -58,6 +77,17 @@ class AuthForm extends React.Component {
         <i className="fas fa-user-alt green-icon pr-half-rem" />
         Log In
       </>;
+
+    const demoIcon = action === 'sign-up'
+      ? <>
+        <i className="material-icons tiny blue-icon">flash_on</i>
+              Live Demo
+      </>
+
+      : <>
+          <i className="material-icons tiny green-icon">flash_on</i>
+          Live Demo
+        </>;
 
     const alternativeButtonColor = action === 'sign-up'
       ? 'btn btn-primary width-100 blue'
@@ -85,9 +115,12 @@ class AuthForm extends React.Component {
             <label htmlFor="email">Email</label>
           </div>
           }
-          <div className="col s12 l12 mb-two-rem mt-one-rem underline">
-            <a href={alternateActionHref}>
+          <div className="col s12 l12 mb-two-rem mt-one-rem justify-between align-center">
+            <a href={alternateActionHref} className="">
               {alternatActionText}
+            </a>
+            <a onClick={this.handleDemo} className="click-target">
+              {demoIcon}
             </a>
           </div>
           <div className="col s12 l12">

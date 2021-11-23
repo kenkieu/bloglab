@@ -187,6 +187,10 @@ a {
   font-weight: 600;
 }
 
+.no-connection img {
+  width: 60%;
+}
+
 .not-found img {
   width: 100%;
 }
@@ -196,12 +200,14 @@ a {
   width: 195px;
 }
 
-.not-found h1 {
+.not-found h1,
+.no-connection h1 {
   margin: 0;
 }
 
 .not-found .btn-large,
-.no-results .btn-large {
+.no-results .btn-large,
+.no-connection .btn-large {
   margin: 3rem 0 2.5rem;
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import NoResults from './no-results';
+import ConnectionError from './connection-error';
 
 class Home extends React.Component {
   constructor(props) {
@@ -7,16 +8,27 @@ class Home extends React.Component {
     this.state = {
       posts: [],
       userPosts: [],
-      showUserPosts: false
+      showUserPosts: false,
+      loading: false,
+      error: false
     };
     this.togglePosts = this.togglePosts.bind(this);
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
+    this.setState({ error: false });
     fetch('/api/posts')
       .then(res => res.json())
-      .then(posts => this.setState({ posts }))
-      .catch(err => console.error(err));
+      .then(posts => {
+        this.setState({ posts });
+        this.setState({ loading: false });
+      })
+      .catch(err => {
+        this.setState({ loading: false });
+        this.setState({ error: true });
+        console.error(err);
+      });
 
     const jwtToken = localStorage.getItem('jwt-token');
     const req = {
@@ -27,7 +39,9 @@ class Home extends React.Component {
     };
     fetch('/api/my-posts', req)
       .then(res => res.json())
-      .then(userPosts => this.setState({ userPosts }))
+      .then(userPosts => {
+        this.setState({ userPosts });
+      })
       .catch(err => console.error(err));
   }
 
@@ -36,7 +50,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { showUserPosts } = this.state;
+    const { showUserPosts, loading, error } = this.state;
     const btnText = showUserPosts === false
       ? 'My Posts'
       : 'Your Feed';
@@ -44,51 +58,74 @@ class Home extends React.Component {
       ? 'Your Feed'
       : 'My Posts';
 
-    return <>
-    <div className="container feed flex-center flex-wrap">
-      <div className="row width-100">
-        <div className="col s12 l12">
-            <h1 className="flex-center font-two-rem">{headerText}</h1>
-        </div>
-      </div>
-    </div>;
-    <div className="container">
-      {!this.state.posts.length
-        ? <NoResults user={this.props.user}/>
-        : <>
-          {this.props.user && <div className="row width-100">
-            <div className="col s6 l6">
-              <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
-            </div>
-            <div className="col s6 s6">
-              <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
+    return (
+      <>
+      {loading
+        ? (
+          <div className="container">
+            <div className="row">
+              <div className="col s12 l12">
+                <div className="progress">
+                  <div className="indeterminate"></div>
+                </div>
+              </div>
             </div>
           </div>
-          }
-        <div className="row flex-wrap">
-          {!this.state.showUserPosts
-            ? this.state.posts.map(post => (
-              <div key={post.postId} className="col s12 l6 m-0">
-              <Post post={post} />
+          )
+        : error
+          ? <ConnectionError/>
+          : (
+          <>
+          <div className="container feed flex-center flex-wrap">
+            <div className="row width-100">
+              <div className="col s12 l12">
+                <h1 className="flex-center font-two-rem">{headerText}</h1>
+              </div>
             </div>
-            ))
-            : this.state.userPosts.map(userPost => (
-              <div key={userPost.postId} className="col s12 l6 m-0">
-              <MyPost userPost={userPost} />
-            </div>
-            ))
-          }
-        </div>
-        </>
-      }
-    </div>
-    </>;
+          </div>
+          <div className="container">
+            {!this.state.posts.length
+              ? <NoResults user={this.props.user} />
+              : (
+                <>
+                {this.props.user && <div className="row width-100">
+                  <div className="col s6 l6">
+                    <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
+                  </div>
+                  <div className="col s6 s6">
+                    <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
+                  </div>
+                </div>
+                }
+                <div className="row flex-wrap">
+                  {!this.state.showUserPosts
+                    ? this.state.posts.map(post => (
+                      <div key={post.postId} className="col s12 l6 m-0">
+                        <Post post={post} />
+                      </div>
+                    ))
+                    : this.state.userPosts.map(userPost => (
+                      <div key={userPost.postId} className="col s12 l6 m-0">
+                        <MyPost userPost={userPost} />
+                      </div>
+                    ))
+                  }
+                </div>
+                </>
+                )
+            }
+          </div>
+          </>
+            )}
+    </>
+    );
   }
 }
 
 function Post(props) {
   const { postId, imageUrl, summary, title, username } = props.post;
-  return <>
+  return (
+  <>
     <div className="card large">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
@@ -101,12 +138,14 @@ function Post(props) {
         <p>{summary}</p>
       </div>
     </div>
-    </>;
+    </>
+  );
 }
 
 function MyPost(props) {
   const { postId, imageUrl, summary, title, username } = props.userPost;
-  return <>
+  return (
+  <>
     <div className="card large">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
@@ -122,7 +161,8 @@ function MyPost(props) {
         <p>{summary}</p>
       </div>
     </div>
-  </>;
+  </>
+  );
 }
 
 export default Home;

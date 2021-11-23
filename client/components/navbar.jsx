@@ -14,9 +14,11 @@ export default class Navbar extends React.Component {
                 <i className="fas fa-sign-out-alt right nav-icon align-center"></i>
                </a>
               : path === 'sign-in'
-                ? <a className="right mr-one-rem align-center" href="#sign-up">
-                Sign Up
-              </a>
+                ? (
+                  <a className="right mr-one-rem align-center" href="#sign-up">
+                    Sign Up
+                  </a>
+                  )
                 : <a className="right mr-one-rem align-center" href="#sign-in">
                 Log In
               </a>

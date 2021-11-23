@@ -1,13 +1,17 @@
 import React from 'react';
 import { format } from 'date-fns';
+import NotFound from './not-found';
+import ConnectionError from './connection-error';
 
 class BlogView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       emailBtnClicked: false,
-      post: null,
-      viewerEmail: ''
+      post: {},
+      viewerEmail: '',
+      loading: false,
+      error: false
     };
     this.toggleLike = this.toggleLike.bind(this);
     this.copyPageUrl = this.copyPageUrl.bind(this);
@@ -30,6 +34,8 @@ class BlogView extends React.Component {
       })
       .catch(err => console.error(err));
 
+    this.setState({ loading: true });
+    this.setState({ error: false });
     fetch(`/api/posts/${this.props.postId}`)
       .then(res => res.json())
       .then(postInfo => {
@@ -49,12 +55,17 @@ class BlogView extends React.Component {
                 const { userLiked } = data;
                 const post = { ...postInfo, userLiked, totalLikes };
                 this.setState({ post });
+                this.setState({ loading: false });
               })
               .catch(err => console.error(err));
           })
           .catch(err => console.error(err));
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({ loading: false });
+        this.setState({ error: true });
+        console.error(err);
+      });
   }
 
   toggleLike() {
@@ -129,77 +140,109 @@ class BlogView extends React.Component {
   }
 
   render() {
-    if (!this.state.post) return null;
     const { imageUrl, summary, title, username, createdAt, body, totalComments, totalLikes } = this.state.post;
-    const formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
-    return <>
-        <div className="container blogpost">
-          <div className="row">
-            <div className="col s12 l6 flex-wrap">
-              <img src={imageUrl} alt="image" className="width-100" />
+    const { loading, error } = this.state;
+    let formattedDate;
+    if (createdAt) {
+      formattedDate = format(new Date(createdAt), 'MMMM dd, yyyy');
+    }
+    return (
+      <>
+      <div className="container blogpost">
+        {loading
+          ? <div className="row">
+              <div className="col s12 l12">
+                <div className="progress">
+                  <div className="indeterminate"></div>
+                </div>
+              </div>
             </div>
-            <div className="col s12 l6 flex-wrap">
-              <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
-              <h1>{title}</h1>
-              <h2 className="light-grey-text">by {username}</h2>
-              <h3 className="light-grey-text">posted on {formattedDate}</h3>
-              <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
-                {!this.state.emailBtnClicked
-                  ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
-                    <i className="fas fa-envelope share-icon"></i>
-                    </a>
-                  : <>
-                    {this.props.user
-                      ? <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
-                      <i className="fas fa-envelope-open share-icon"></i>
-                    </a>
-                      : <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
-                      <i className="fas fa-envelope share-icon"></i>
-                    </a>
+          : error
+            ? <ConnectionError />
+            : <>
+          {this.state.post.error
+            ? <NotFound />
+            : (
+              <>
+              <div className="row">
+                <div className="col s12 l6 flex-wrap">
+                  <img src={imageUrl} alt="image" className="width-100" />
+                </div>
+                <div className="col s12 l6 flex-wrap">
+                  <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
+                  <h1>{title}</h1>
+                  <h2 className="light-grey-text">by {username}</h2>
+                  <h3 className="light-grey-text">posted on {formattedDate}</h3>
+                  <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
+                    {!this.state.emailBtnClicked
+                      ? (
+                        <a onClick={this.emailPost} className='waves-effect waves-light btn-large grey lighten-1 width-100'>
+                          <i className="fas fa-envelope share-icon"></i>
+                        </a>
+                        )
+                      : <>
+                        {this.props.user
+                          ? (
+                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
+                              <i className="fas fa-envelope-open share-icon"></i>
+                            </a>
+                            )
+                          : (
+                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
+                              <i className="fas fa-envelope share-icon"></i>
+                            </a>
+                            )
+                        }
+                      </>
                     }
-                    </>
-                  }
+                  </div>
+                  <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
+                    <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
+                      <i className="fas fa-link share-icon"></i>
+                    </a>
+                  </div>
+                </div>
+                <div className="col s12 flex-wrap mt-one-rem">
+                  <p>{body}</p>
+                </div>
               </div>
-              <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
-                <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
-                  <i className="fas fa-link share-icon"></i>
-                </a>
+              <hr className="mb-one-rem" />
+              <div className="row">
+                <div className="justify-between align-center plr-three-fourth">
+                  <div>
+                    <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
+                      {this.props.user
+                        ? (!this.state.post.userLiked
+                            ? <i className="far fa-heart"></i>
+                            : <i className="fas fa-heart heart-color"></i>
+                          )
+                        : <i className="fas fa-heart-broken grey-text"></i>
+                      }
+                    </a>
+                    <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                      {this.props.user
+                        ? <i className="far fa-comment"></i>
+                        : <i className="fas fa-comment grey-text"></i>}
+                    </a>
+                  </div>
+                  <div className="bold">
+                    <a className="mr-third-rem">
+                      {`${totalLikes} Likes`}
+                    </a>
+                    <a className="ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
+                      {`${totalComments} Comments`}
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="col s12 flex-wrap mt-one-rem">
-              <p>{body}</p>
-            </div>
-          </div>
-          <hr className="mb-one-rem"/>
-          <div className="row">
-          <div className="justify-between align-center plr-three-fourth">
-            <div>
-              <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
-                {this.props.user
-                  ? !this.state.post.userLiked
-                      ? <i className="far fa-heart"></i>
-                      : <i className="fas fa-heart heart-color"></i>
-                  : <i className="fas fa-heart-broken grey-text"></i>
-                }
-              </a>
-              <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                {this.props.user
-                  ? <i className="far fa-comment"></i>
-                  : <i className="fas fa-comment grey-text"></i>}
-              </a>
-            </div>
-            <div className="bold">
-              <a className="mr-third-rem">
-                {`${totalLikes} Likes`}
-              </a>
-              <a className="ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
-                {`${totalComments} Comments`}
-              </a>
-            </div>
-            </div>
-          </div>
-        </div>;
-        </>;
+            </>
+              )
+          }
+          </>
+        }
+      </div>
+      </>
+    );
   }
 }
 
