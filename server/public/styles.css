@@ -211,6 +211,10 @@ a {
   margin: 3rem 0 2.5rem;
 }
 
+.card-image {
+  min-height: 90px;
+}
+
 .card-image .btn-floating {
   top: 1.25rem;
 }
