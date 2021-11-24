@@ -1,6 +1,6 @@
 import React from 'react';
-import CommentForm from '../components/commentform';
-import CommentList from '../components/commentlist';
+import CommentForm from '../components/comment-form';
+import CommentList from '../components/comment-list';
 
 class CommentPage extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class CommentPage extends React.Component {
     <div className="container">
       <div className="row">
         <div className="col s12 l12">
-            <h1 className="font-two-rem text-center">Comments</h1>
+            <h1 className="text-center">Comments</h1>
         </div>
       </div>
     </div>

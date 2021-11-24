@@ -5,9 +5,9 @@ import decodeToken from './lib/decode-token';
 import Navbar from './components/navbar';
 import Home from './pages/home';
 import Form from './pages/form';
-import BlogView from './pages/blogview';
+import BlogView from './pages/blog-view';
 import EditForm from './pages/edit-form';
-import CommentPage from './pages/commentpage';
+import CommentPage from './pages/comment-page';
 import AuthPage from './pages/auth-page';
 import NotFound from './pages/not-found';
 

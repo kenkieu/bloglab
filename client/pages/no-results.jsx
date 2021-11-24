@@ -8,7 +8,7 @@ class NoResults extends React.Component {
         <img src="images/magnifying-glass.png" alt="no-results-image" className="flex-center" />
       </div>
       <div className="col s12 l12 text-center">
-        <h1 className="font-two-rem">
+        <h1>
           Sorry, we couldn&apos;t find any results!
         </h1>
         {this.props.user

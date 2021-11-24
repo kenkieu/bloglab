@@ -18,8 +18,8 @@ class Form extends React.Component {
     return <>
       <div className="container form">
         <div className="row">
-          <div className="col s12">
-            <h1>Create Blog</h1>
+          <div className="col s12 l12 mt-half-rem">
+            <h1 className="m-0">Create Blog</h1>
           </div>
         </div>
         <form onSubmit={this.handleSubmit} className="mt-two-rem">
