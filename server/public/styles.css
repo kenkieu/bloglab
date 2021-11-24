@@ -1,5 +1,6 @@
 body {
   font-family: Raleway, sans-serif;
+  line-height: 1.6rem;
 }
 
 h1,
@@ -11,6 +12,8 @@ h3 {
 h1 {
   font-size: 1.7rem;
 }
+
+/* Color */
 
 a {
   color: #212121;
@@ -35,6 +38,8 @@ a {
 .grey-text {
   color: #bdbdbd;
 }
+
+/* Utility Classes */
 
 .width-100 {
   width: 100%;
@@ -138,6 +143,8 @@ a {
   cursor: pointer;
 }
 
+/* Semantic Classes */
+
 .brand-logo {
   font-size: 1.75rem !important;
   font-weight: 600;
@@ -156,7 +163,6 @@ a {
 }
 
 .blockquote-color {
-  width: 100%;
   border-left: 5px solid #26a69a;
 }
 
@@ -168,19 +174,16 @@ a {
 }
 
 .blogpost h3 {
-  width: 100%;
   font-size: 1rem;
   margin: 0.5rem 0 0;
 }
 
 .blogpost h2 {
-  width: 100%;
   font-size: 1.4rem;
   margin: 0;
 }
 
 .feed h1 {
-  width: 100%;
   margin: 1rem 0 1.5rem;
 }
 
@@ -199,7 +202,6 @@ a {
 
 .auth-form a {
   text-decoration: underline;
-  font-weight: 600;
 }
 
 .no-connection img {
@@ -213,11 +215,6 @@ a {
 
 .no-results h1 {
   margin: 1rem 0 0;
-}
-
-.not-found h1,
-.no-connection h1 {
-  margin: 0;
 }
 
 .not-found .btn-large,

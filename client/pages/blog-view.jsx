@@ -170,9 +170,9 @@ class BlogView extends React.Component {
                 </div>
                 <div className="col s12 l6 flex-wrap">
                   <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
-                  <h2>{title}</h2>
-                  <h3 className="light-grey-text">by {username}</h3>
-                  <h3 className="light-grey-text mb-one-rem">posted on {formattedDate}</h3>
+                  <h2 className="width-100">{title}</h2>
+                  <h3 className="light-grey-text width-100">by {username}</h3>
+                  <h3 className="light-grey-text mb-one-rem width-100">posted on {formattedDate}</h3>
                   <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                     {!this.state.emailBtnClicked
                       ? (
