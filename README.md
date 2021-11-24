@@ -62,6 +62,12 @@ Try the application live at [https://lfz-bloglab.herokuapp.com/](https://lfz-blo
     cd final-project
     ```
 
+1. Copy the env.example file, and edit all placeholder "changeMe" values.
+
+    ```shell
+    cp .env.example .env
+    ```
+
 1. Install all dependencies with NPM.
 
     ```shell
