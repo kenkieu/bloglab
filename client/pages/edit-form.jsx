@@ -31,7 +31,7 @@ class EditForm extends React.Component {
             </div>
             <div className="justify-between footer">
               <a onClick={closeModal} className="modal-close waves-effect waves-red btn-flat">Cancel</a>
-              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-green btn-flat">Delete</a>
+              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-green btn-flat red-icon">Delete</a>
             </div>
           </div>
         </div>
@@ -39,9 +39,9 @@ class EditForm extends React.Component {
       }
       <div className="container edit-form">
         <div className="row">
-          <div className="col s12 justify-between align-center">
-            <h1>Edit Blog</h1>
-            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red lighten-1">
+          <div className="col s12 justify-between align-center mt-half-rem">
+            <h1 className="m-0">Edit Blog</h1>
+            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red lighten-1 trash-btn">
               <i className="material-icons trash-icon">delete</i>
             </a>
           </div>

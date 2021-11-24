@@ -15,11 +15,11 @@ export default class Navbar extends React.Component {
                </a>
               : path === 'sign-in'
                 ? (
-                  <a className="right mr-one-rem align-center" href="#sign-up">
+                  <a className="right mr-one-rem align-center nav-link" href="#sign-up">
                     Sign Up
                   </a>
                   )
-                : <a className="right mr-one-rem align-center" href="#sign-in">
+                : <a className="right mr-one-rem align-center nav-link" href="#sign-in">
                 Log In
               </a>
             }

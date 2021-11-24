@@ -65,8 +65,8 @@ class Home extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col s12 l12">
-                <div className="progress">
-                  <div className="indeterminate"></div>
+                <div className="progress light-blue lighten-1">
+                    <div className="indeterminate blue"></div>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ class Home extends React.Component {
           <div className="container feed flex-center flex-wrap">
             <div className="row width-100">
               <div className="col s12 l12">
-                <h1 className="flex-center font-two-rem">{headerText}</h1>
+                <h1 className="flex-center">{headerText}</h1>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@ function Post(props) {
       <div className="card-content">
         <span className="card-title">{title}</span>
         <p className="card-username">by {username}</p>
-        <p>{summary}</p>
+        <p className="card-summary">{summary}</p>
       </div>
     </div>
     </>
@@ -151,14 +151,14 @@ function MyPost(props) {
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
         </a>
-        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn-large halfway-fab waves-effect waves-light blue">
+        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn halfway-fab waves-effect waves-light blue">
           <i className="material-icons">edit</i>
         </a>
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
         <p className="card-username">{username}</p>
-        <p>{summary}</p>
+        <p className="card-summary">{summary}</p>
       </div>
     </div>
   </>

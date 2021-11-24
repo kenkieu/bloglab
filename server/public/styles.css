@@ -5,19 +5,43 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 600;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 1.7rem;
 }
 
 a {
   color: #212121;
 }
 
+.red-icon {
+  color: #ef5350;
+}
+
+.blue-icon {
+  color: #2196f3;
+}
+
+.green-icon {
+  color: #26a69a;
+}
+
+.light-grey-text {
+  color: #b0bec5;
+}
+
+.grey-text {
+  color: #bdbdbd;
+}
+
 .width-100 {
   width: 100%;
 }
 
-.m-0 {
-  margin: 0 !important;
+.plr-three-fourth-rem {
+  padding: 0 0.75rem;
 }
 
 .pl-half-rem {
@@ -28,32 +52,32 @@ a {
   padding: 0 0.5rem 0 0 !important;
 }
 
-.plr-three-fourth-rem {
-  padding: 0 0.75rem;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.mt-half-rem {
-  margin-top: 0.5rem;
+.m-0 {
+  margin: 0 !important;
 }
 
 .mb-one-rem {
-  margin-bottom: 1rem;
-}
-
-.mt-one-rem {
-  margin-top: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .mb-two-rem {
   margin-bottom: 2rem;
 }
 
+.mt-half-rem {
+  margin-top: 0.5rem;
+}
+
+.mt-one-rem {
+  margin-top: 1rem;
+}
+
 .mt-two-rem {
   margin-top: 2rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .flex-wrap {
@@ -114,21 +138,21 @@ a {
   cursor: pointer;
 }
 
-.heart-color {
-  color: #ef5350;
-}
-
-.blue-icon {
-  color: #2196f3;
-}
-
-.green-icon {
-  color: #26a69a;
+.brand-logo {
+  font-size: 1.75rem !important;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .nav-icon {
-  font-size: 2rem;
+  font-size: 1.75rem;
   margin-right: 1rem;
+}
+
+.brand-logo:hover,
+.nav-icon:hover,
+.nav-link:hover {
+  color: #b0bec5;
 }
 
 .blockquote-color {
@@ -136,16 +160,9 @@ a {
   border-left: 5px solid #26a69a;
 }
 
-.light-grey-text {
-  color: #b0bec5;
-}
-
-.grey-text {
-  color: #bdbdbd;
-}
-
 .blogpost p,
 .blogpost blockquote {
+  font-size: 0.95rem;
   line-height: 2.25rem;
   white-space: pre-wrap;
 }
@@ -153,20 +170,18 @@ a {
 .blogpost h3 {
   width: 100%;
   font-size: 1rem;
-  margin: 0.5rem 0 1rem;
+  margin: 0.5rem 0 0;
 }
 
 .blogpost h2 {
   width: 100%;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   margin: 0;
 }
 
-.blogpost h1,
 .feed h1 {
   width: 100%;
-  font-size: 2rem;
-  margin: 1rem 0 0.5rem;
+  margin: 1rem 0 1.5rem;
 }
 
 .comment-time-ago {
@@ -178,8 +193,8 @@ a {
   font-size: 2rem !important;
 }
 
-.trash-icon {
-  font-size: 2.5rem;
+.trash-btn {
+  padding: 0 0.75rem !important;
 }
 
 .auth-form a {
@@ -191,13 +206,13 @@ a {
   width: 60%;
 }
 
-.not-found img {
-  width: 100%;
+.no-results img {
+  margin: 2rem 5rem 2rem 0;
+  width: 195px;
 }
 
-.no-results img {
-  margin: 2.5rem 0;
-  width: 195px;
+.no-results h1 {
+  margin: 1rem 0 0;
 }
 
 .not-found h1,
@@ -206,8 +221,7 @@ a {
 }
 
 .not-found .btn-large,
-.no-results .btn-large,
-.no-connection .btn-large {
+.no-results .btn-large {
   margin: 3rem 0 2.5rem;
 }
 
@@ -215,20 +229,25 @@ a {
   min-height: 90px;
 }
 
-.card-image .btn-floating {
-  top: 1.25rem;
+.btn-floating {
+  top: 1rem;
+  right: 1rem !important;
+}
+
+.card-title {
+  font-size: 1.4rem !important;
+  margin-bottom: 0 !important;
+}
+
+.card-summary {
+  font-size: 0.9rem !important;
 }
 
 .card-username {
   color: #b0bec5;
   font-weight: 500;
-  margin-bottom: 0.5rem !important;
-}
-
-.edit-form h1,
-.form h1 {
-  margin: 1.68rem 0;
-  font-size: 2rem;
+  font-size: 1rem;
+  margin-bottom: 0.75rem !important;
 }
 
 .modal-bg {
@@ -255,10 +274,6 @@ a {
 }
 
 @media only screen and (min-width: 993px) {
-  .blogpost p {
-    margin: 1rem 0;
-  }
-
   .blockquote-color {
     order: 3;
   }
@@ -281,25 +296,17 @@ a {
 }
 
 @media only screen and (min-width: 1200px) {
-  .blogpost p {
-    font-size: 1.1rem;
-    margin: 2rem 0;
-  }
-
+  .blogpost p,
   .blockquote-color {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
   .blogpost h3 {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
   }
 
   .blogpost h2 {
     font-size: 1.5rem;
-  }
-
-  .blogpost h1 {
-    font-size: 2.5rem;
   }
 
   .pad-l-half-rem {

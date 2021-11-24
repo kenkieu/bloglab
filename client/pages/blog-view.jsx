@@ -170,9 +170,9 @@ class BlogView extends React.Component {
                 </div>
                 <div className="col s12 l6 flex-wrap">
                   <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
-                  <h1>{title}</h1>
-                  <h2 className="light-grey-text">by {username}</h2>
-                  <h3 className="light-grey-text">posted on {formattedDate}</h3>
+                  <h2>{title}</h2>
+                  <h3 className="light-grey-text">by {username}</h3>
+                  <h3 className="light-grey-text mb-one-rem">posted on {formattedDate}</h3>
                   <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                     {!this.state.emailBtnClicked
                       ? (
@@ -210,15 +210,17 @@ class BlogView extends React.Component {
               <div className="row">
                 <div className="justify-between align-center plr-three-fourth">
                   <div>
-                    <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
                       {this.props.user
                         ? (!this.state.post.userLiked
-                            ? <i className="far fa-heart"></i>
-                            : <i className="fas fa-heart heart-color"></i>
+                            ? <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
+                              <i className="far fa-heart"></i>
+                              </a>
+                            : <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
+                              <i className="fas fa-heart red-icon"></i>
+                              </a>
                           )
-                        : <i className="fas fa-heart-broken grey-text"></i>
+                        : <i className="fas fa-heart-broken grey-text mr-third-rem font-two-rem"></i>
                       }
-                    </a>
                     <a className="font-two-rem ml-third-rem" href={`#comments?postId=${this.props.postId}`}>
                       {this.props.user
                         ? <i className="far fa-comment"></i>

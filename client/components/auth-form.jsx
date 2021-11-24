@@ -96,7 +96,7 @@ class AuthForm extends React.Component {
     return (
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="row">
-          <h1 className="text-center font-two-rem">
+          <h1 className="text-center">
             {authFormHeading}
           </h1>
         </div>

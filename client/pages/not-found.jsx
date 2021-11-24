@@ -5,7 +5,7 @@ export default function NotFound(props) {
       <div className="container not-found">
         <div className="row flex-wrap" >
           <div className="col s12 l12 flex-center">
-            <img src="images/404-image-cropped.png" alt="not-found-image" className="flex-center"/>
+            <img src="images/404-image-cropped.png" alt="not-found-image" className="flex-center width-100"/>
           </div>
           <div className="col s12 l12 text-center">
             <h1 className="font-two-rem">
