@@ -52,6 +52,7 @@ Try the application live at [https://lfz-bloglab.herokuapp.com/](https://lfz-blo
 
 - Node.js 10 or higher
 - NPM 6 or higher
+- PostgreSQL 14.1 or higher
 
 ### Getting Started
 
