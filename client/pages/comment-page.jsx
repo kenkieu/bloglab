@@ -34,12 +34,12 @@ class CommentPage extends React.Component {
   }
 
   addComment(newComment) {
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const req = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       },
       body: JSON.stringify(newComment)
     };

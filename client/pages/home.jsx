@@ -30,11 +30,11 @@ class Home extends React.Component {
         console.error(err);
       });
 
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const req = {
       method: 'GET',
       headers: {
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       }
     };
     fetch('/api/my-posts', req)
