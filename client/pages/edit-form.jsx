@@ -119,13 +119,13 @@ class EditForm extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const editedPost = this.state;
     const req = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       },
       body: JSON.stringify(editedPost)
     };
@@ -138,12 +138,12 @@ class EditForm extends React.Component {
   }
 
   handleDelete() {
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       }
     };
     fetch(`/api/posts/${this.props.postId}`, req)

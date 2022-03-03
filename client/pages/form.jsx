@@ -74,13 +74,13 @@ class Form extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const newPost = this.state;
     const req = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       },
       body: JSON.stringify(newPost)
     };

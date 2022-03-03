@@ -19,12 +19,12 @@ class BlogView extends React.Component {
   }
 
   componentDidMount() {
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const firstReq = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': jwtToken
+        'x-access-token': jwt
       }
     };
     fetch('/api/email-share', firstReq)
@@ -46,7 +46,7 @@ class BlogView extends React.Component {
             const req = {
               method: 'GET',
               headers: {
-                'x-access-token': jwtToken
+                'x-access-token': jwt
               }
             };
             fetch(`/api/liked/${this.props.postId}`, req)
@@ -70,7 +70,7 @@ class BlogView extends React.Component {
 
   toggleLike() {
     const { userId, postId, userLiked } = this.state.post;
-    const jwtToken = localStorage.getItem('jwt-token');
+    const jwt = localStorage.getItem('jwt-token');
     const newLike = {
       postId: postId,
       userId: userId
@@ -80,7 +80,7 @@ class BlogView extends React.Component {
       const req = {
         method: 'DELETE',
         headers: {
-          'x-access-token': jwtToken
+          'x-access-token': jwt
         }
       };
       fetch(`/api/likes/${postId}`, req)
@@ -94,7 +94,7 @@ class BlogView extends React.Component {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': jwtToken
+          'x-access-token': jwt
         },
         body: JSON.stringify(newLike)
       };
