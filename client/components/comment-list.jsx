@@ -2,21 +2,18 @@ import React from 'react';
 import { formatDistance } from 'date-fns';
 
 class CommentList extends React.Component {
-
   render(props) {
     const { comments } = this.props;
-    return <>
-      <div className="container">
-        <div className="row">
-          {comments.map(comment => (
-            <div key={comment.createdAt} className="col s12 l12">
-              <Comment comment={comment}/>
-            </div>
-          ))
-          }
-        </div>
+    return (
+      <div className="row">
+        {comments.map(comment => (
+          <div key={comment.createdAt} className="col s12 l12">
+            <Comment comment={comment}/>
+          </div>
+        ))
+        }
       </div>
-    </>;
+    );
   }
 }
 

@@ -6,7 +6,7 @@ export default class Navbar extends React.Component {
     const { user, handleSignOut } = this.context;
     const { path } = this.context.route;
     return <>
-        <nav className="grey darken-4 mb-two-rem">
+        <nav className="grey darken-4 mb-half-rem">
           <div className="nav-wrapper">
             <a href="#" className="brand-logo center">bloglab</a>
             {user !== null

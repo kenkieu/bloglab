@@ -12,9 +12,9 @@ class CommentForm extends React.Component {
   }
 
   render() {
-    return <>
+    return (
+      <>
       {this.props.user &&
-      <div className="container">
         <form onSubmit={this.handleSubmit} >
           <div className="input-field col s12 l12">
             <input required onChange={this.handleChange} id="comment" type="text" name="content" value={this.state.content} />
@@ -24,9 +24,9 @@ class CommentForm extends React.Component {
             <button className="btn-large blue darken-2 width-100 mb-two-rem" type="submit" name="action">Submit</button>
           </div>
         </form>
-      </div>
       }
-    </>;
+      </>
+    );
   }
 
   componentDidMount() {

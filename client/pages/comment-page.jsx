@@ -19,9 +19,9 @@ class CommentPage extends React.Component {
             <h1 className="text-center">Comments</h1>
         </div>
       </div>
-    </div>
       <CommentForm onSubmit={this.addComment} postId={this.props.postId} user={this.props.user} />
       <CommentList comments={this.state.comments} postId={this.props.postId} />
+    </div>
     </>;
   }
 
