@@ -5,7 +5,8 @@ class AuthForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      authorized: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +34,10 @@ class AuthForm extends React.Component {
         if (action === 'sign-up') {
           window.location.hash = 'sign-in';
         } else if (result.user && result.token) {
+          this.setState({ authorized: true });
           this.props.onSignIn(result);
+        } else if (!result.token) {
+          this.setState({ authorized: false });
         }
       });
   }
@@ -99,8 +103,20 @@ class AuthForm extends React.Component {
           <h1 className="text-center">
             {authFormHeading}
           </h1>
+          <div className='col s12 l12'>
+            {this.state.authorized === false && (
+              <div className='inc-pass red lighten-4 red-text text-darken-2 col s12 l12'>
+                <p>
+                Your password or username is incorrect. Please try again or {' '}
+                <a className="red-text text-darken-2" href="#sign-up">
+                  create a new account.
+                </a>
+                </p>
+              </div>
+            )}
+          </div>
           <div className="input-field col s12 l12">
-            <input required onChange={handleChange} name="username" id="username" type="text" className=""/>
+            <input required onChange={handleChange} name="username" id="username" type="text"/>
             <label htmlFor="username">Username</label>
           </div>
           <div className="input-field col s12 l12">

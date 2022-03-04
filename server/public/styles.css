@@ -206,6 +206,11 @@ a {
   text-decoration: underline;
 }
 
+.inc-pass {
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+}
+
 .no-connection img {
   width: 60%;
 }
