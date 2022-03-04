@@ -169,7 +169,7 @@ class BlogView extends React.Component {
                   <img src={imageUrl} alt="image" className="width-100" />
                 </div>
                 <div className="col s12 l6 flex-wrap">
-                  <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
+                  <blockquote className="blockquote-color width-100"><em>{summary}</em></blockquote>
                   <h2 className="width-100">{title}</h2>
                   <h3 className="blue-grey-text text-lighten-2 width-100">by {username}</h3>
                   <h3 className="blue-grey-text text-lighten-2 width-100">posted on {formattedDate}</h3>

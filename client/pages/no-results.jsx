@@ -12,8 +12,8 @@ class NoResults extends React.Component {
           Sorry, we couldn&apos;t find any results!
         </h1>
         {this.props.user
-          ? <a href="#form" className="btn-large blue">NEW POST</a>
-          : <a className="disabled btn-large blue">NEW POST</a>
+          ? <a href="#form" className="btn-large blue darken-2 waves-effect waves-light">NEW POST</a>
+          : <a className="disabled btn-large blue darken-2 waves-effect waves-light">NEW POST</a>
         }
       </div>
     </div>
