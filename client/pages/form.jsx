@@ -47,12 +47,12 @@ class Form extends React.Component {
           </div>
           <div className="row">
             <div className="col s6">
-              <a href="#" className="btn waves-effect waves-light grey darken-2">Cancel
+              <a href="#" className="btn teal waves-effect waves-light grey darken-2">Cancel
                 <i className="material-icons right">cancel</i>
               </a>
             </div>
             <div className="col s6 flex-end">
-              <button className="btn waves-effect waves-light" type="submit">Submit
+              <button className="btn teal waves-effect waves-light" type="submit">Submit
                 <i className="material-icons right">send</i>
               </button>
             </div>

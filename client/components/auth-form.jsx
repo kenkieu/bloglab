@@ -5,7 +5,8 @@ class AuthForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      authorized: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +34,10 @@ class AuthForm extends React.Component {
         if (action === 'sign-up') {
           window.location.hash = 'sign-in';
         } else if (result.user && result.token) {
+          this.setState({ authorized: true });
           this.props.onSignIn(result);
+        } else if (!result.token) {
+          this.setState({ authorized: false });
         }
       });
   }
@@ -62,7 +66,7 @@ class AuthForm extends React.Component {
     const alternateActionHref = action === 'sign-up'
       ? '#sign-in'
       : '#sign-up';
-    const alternatActionText = action === 'sign-up'
+    const alternateActionText = action === 'sign-up'
       ? 'Already have an account?'
       : 'Create a new account';
     const submitButtonText = action === 'sign-up'
@@ -70,39 +74,49 @@ class AuthForm extends React.Component {
       : 'Log In';
     const authFormHeading = action === 'sign-up'
       ? <>
-        <i className="fas fa-user-alt blue-icon pr-half-rem" />
+        <i className="fas fa-user-alt blue-text text-darken-2 pr-half-rem" />
         Sign Up
       </>
       : <>
-        <i className="fas fa-user-alt green-icon pr-half-rem" />
+        <i className="fas fa-user-alt teal-text pr-half-rem" />
         Log In
       </>;
 
     const demoIcon = action === 'sign-up'
       ? <>
-        <i className="material-icons tiny blue-icon">flash_on</i>
+        <i className="material-icons tiny blue-text text-darken-2">flash_on</i>
               Live Demo
       </>
 
       : <>
-          <i className="material-icons tiny green-icon">flash_on</i>
+          <i className="material-icons tiny teal-text">flash_on</i>
           Live Demo
         </>;
 
     const alternativeButtonColor = action === 'sign-up'
-      ? 'btn btn-primary width-100 blue'
-      : 'btn btn-primary width-100';
+      ? 'btn-large btn-primary width-100 blue darken-2'
+      : 'btn-large btn-primary width-100 teal';
 
     return (
       <form className="auth-form" onSubmit={handleSubmit}>
-        <div className="row">
+        <div className="row width-100 center">
           <h1 className="text-center">
             {authFormHeading}
           </h1>
-        </div>
-        <div className="row">
+          <div className='col s12 l12'>
+            {this.state.authorized === false && (
+              <div className='inc-pass red lighten-4 red-text text-darken-2 col s12 l12'>
+                <p>
+                Your password or username is incorrect. Please try again or {' '}
+                <a className="red-text text-darken-2" href="#sign-up">
+                  create a new account.
+                </a>
+                </p>
+              </div>
+            )}
+          </div>
           <div className="input-field col s12 l12">
-            <input required onChange={handleChange} name="username" id="username" type="text" className=""/>
+            <input required onChange={handleChange} name="username" id="username" type="text"/>
             <label htmlFor="username">Username</label>
           </div>
           <div className="input-field col s12 l12">
@@ -117,7 +131,7 @@ class AuthForm extends React.Component {
           }
           <div className="col s12 l12 mb-two-rem mt-one-rem justify-between align-center">
             <a href={alternateActionHref} className="bold">
-              {alternatActionText}
+              {alternateActionText}
             </a>
             <a onClick={this.handleDemo} className="click-target bold">
               {demoIcon}

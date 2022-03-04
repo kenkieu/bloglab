@@ -30,8 +30,8 @@ class EditForm extends React.Component {
               <p>Do you really want to delete this post? This action cannot be undone.</p>
             </div>
             <div className="justify-between footer">
-              <a onClick={closeModal} className="modal-close waves-effect waves-red btn-flat">Cancel</a>
-              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-green btn-flat red-icon">Delete</a>
+              <a onClick={closeModal} className="modal-close waves-effect waves-gray btn-flat">Cancel</a>
+              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-red btn-flat red-text text-darken-2">Delete</a>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@ class EditForm extends React.Component {
         <div className="row">
           <div className="col s12 justify-between align-center mt-half-rem">
             <h1 className="m-0">Edit Blog</h1>
-            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red lighten-1 trash-btn">
+            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red darken-2 trash-btn flex-center align-center">
               <i className="material-icons trash-icon">delete</i>
             </a>
           </div>
@@ -71,12 +71,12 @@ class EditForm extends React.Component {
             </div>
             <div className="row">
               <div className="col s6">
-                <a href="#" className="btn waves-effect waves-light grey darken-2">Cancel
+                <a href="#" className="btn teal waves-effect waves-light grey darken-2">Cancel
                   <i className="material-icons right">cancel</i>
                 </a>
               </div>
               <div className="col s6 flex-end">
-                <button className="btn waves-effect waves-light" type="submit">Save
+                <button className="btn teal waves-effect waves-light" type="submit">Save
                   <i className="material-icons right">save</i>
                 </button>
               </div>

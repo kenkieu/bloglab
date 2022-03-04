@@ -65,8 +65,8 @@ class Home extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col s12 l12">
-                <div className="progress light-blue lighten-1">
-                    <div className="indeterminate blue"></div>
+                <div className="progress light-blue darken-2">
+                    <div className="indeterminate blue darken-4"></div>
                 </div>
               </div>
             </div>
@@ -88,12 +88,12 @@ class Home extends React.Component {
               ? <NoResults user={this.props.user} />
               : (
                 <>
-                {this.props.user && <div className="row width-100">
+                {this.props.user && <div className="row width-100 mb-two-rem">
                   <div className="col s6 l6">
-                    <a href="#form" className="mb-one-rem btn-large blue width-100">NEW POST</a>
+                    <a href="#form" className="btn-large blue darken-2 width-100 waves-effect waves-light">NEW POST</a>
                   </div>
                   <div className="col s6 s6">
-                    <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100">{btnText}</a>
+                    <a onClick={this.togglePosts} className="btn-large grey darken-4 width-100 waves-effect waves-light">{btnText}</a>
                   </div>
                 </div>
                 }
@@ -126,7 +126,7 @@ function Post(props) {
   const { postId, imageUrl, summary, title, username } = props.post;
   return (
   <>
-    <div className="card large">
+    <div className="card large hoverable">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
@@ -134,7 +134,7 @@ function Post(props) {
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
-        <p className="card-username">by {username}</p>
+        <p className="card-username blue-grey-text text-lighten-2">by {username}</p>
         <p className="card-summary">{summary}</p>
       </div>
     </div>
@@ -151,7 +151,7 @@ function MyPost(props) {
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
         </a>
-        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn halfway-fab waves-effect waves-light blue">
+        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn halfway-fab waves-effect waves-light blue darken-2">
           <i className="material-icons">edit</i>
         </a>
       </div>

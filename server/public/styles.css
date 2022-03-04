@@ -3,6 +3,10 @@ body {
   line-height: 1.6rem;
 }
 
+nav {
+  margin-bottom: 3rem;
+}
+
 h1,
 h2,
 h3 {
@@ -11,6 +15,7 @@ h3 {
 
 h1 {
   font-size: 1.7rem;
+  margin: 0 0 1.5rem;
 }
 
 /* Color */
@@ -19,24 +24,20 @@ a {
   color: #212121;
 }
 
-.red-icon {
-  color: #ef5350;
-}
-
-.blue-icon {
-  color: #2196f3;
-}
-
-.green-icon {
-  color: #26a69a;
-}
-
-.light-grey-text {
-  color: #b0bec5;
-}
-
 .grey-text {
   color: #bdbdbd;
+}
+
+.btn-large,
+.btn {
+  border-radius: 0.75rem;
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
+
+.btn-large:hover,
+.btn:hover {
+  opacity: 90%;
 }
 
 /* Utility Classes */
@@ -65,8 +66,12 @@ a {
   margin-bottom: 1rem !important;
 }
 
+.mb-one-half {
+  margin-bottom: 1.5rem;
+}
+
 .mb-two-rem {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .mt-half-rem {
@@ -159,7 +164,7 @@ a {
 .brand-logo:hover,
 .nav-icon:hover,
 .nav-link:hover {
-  color: #b0bec5;
+  color: #e7e7e7;
 }
 
 .blockquote-color {
@@ -183,10 +188,6 @@ a {
   margin: 0;
 }
 
-.feed h1 {
-  margin: 1rem 0 1.5rem;
-}
-
 .comment-time-ago {
   font-size: 0.9rem;
   margin-left: 1rem;
@@ -197,11 +198,17 @@ a {
 }
 
 .trash-btn {
-  padding: 0 0.75rem !important;
+  border-radius: 0.6rem;
+  padding: 1.35rem 0.7rem !important;
 }
 
 .auth-form a {
   text-decoration: underline;
+}
+
+.inc-pass {
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
 }
 
 .no-connection img {
@@ -211,10 +218,6 @@ a {
 .no-results img {
   margin: 2rem 5rem 2rem 0;
   width: 195px;
-}
-
-.no-results h1 {
-  margin: 1rem 0 0;
 }
 
 .not-found .btn-large,
