@@ -70,28 +70,28 @@ class AuthForm extends React.Component {
       : 'Log In';
     const authFormHeading = action === 'sign-up'
       ? <>
-        <i className="fas fa-user-alt blue-icon pr-half-rem" />
+        <i className="fas fa-user-alt blue-text text-darken-2 pr-half-rem" />
         Sign Up
       </>
       : <>
-        <i className="fas fa-user-alt green-icon pr-half-rem" />
+        <i className="fas fa-user-alt teal-text pr-half-rem" />
         Log In
       </>;
 
     const demoIcon = action === 'sign-up'
       ? <>
-        <i className="material-icons tiny blue-icon">flash_on</i>
+        <i className="material-icons tiny blue-text text-darken-2">flash_on</i>
               Live Demo
       </>
 
       : <>
-          <i className="material-icons tiny green-icon">flash_on</i>
+          <i className="material-icons tiny teal-text">flash_on</i>
           Live Demo
         </>;
 
     const alternativeButtonColor = action === 'sign-up'
-      ? 'btn btn-primary width-100 blue'
-      : 'btn btn-primary width-100';
+      ? 'btn btn-primary width-100 blue darken-2'
+      : 'btn btn-primary width-100 teal';
 
     return (
       <form className="auth-form" onSubmit={handleSubmit}>

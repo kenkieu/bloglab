@@ -39,6 +39,17 @@ a {
   color: #bdbdbd;
 }
 
+.btn-large,
+.btn {
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
+
+.btn-large:hover,
+.btn:hover {
+  opacity: 90%;
+}
+
 /* Utility Classes */
 
 .width-100 {
