@@ -62,7 +62,7 @@ class AuthForm extends React.Component {
     const alternateActionHref = action === 'sign-up'
       ? '#sign-in'
       : '#sign-up';
-    const alternatActionText = action === 'sign-up'
+    const alternateActionText = action === 'sign-up'
       ? 'Already have an account?'
       : 'Create a new account';
     const submitButtonText = action === 'sign-up'
@@ -90,17 +90,15 @@ class AuthForm extends React.Component {
         </>;
 
     const alternativeButtonColor = action === 'sign-up'
-      ? 'btn btn-primary width-100 blue darken-2'
-      : 'btn btn-primary width-100 teal';
+      ? 'btn-large btn-primary width-100 blue darken-2'
+      : 'btn-large btn-primary width-100 teal';
 
     return (
       <form className="auth-form" onSubmit={handleSubmit}>
-        <div className="row">
+        <div className="row width-100 center">
           <h1 className="text-center">
             {authFormHeading}
           </h1>
-        </div>
-        <div className="row">
           <div className="input-field col s12 l12">
             <input required onChange={handleChange} name="username" id="username" type="text" className=""/>
             <label htmlFor="username">Username</label>
@@ -117,7 +115,7 @@ class AuthForm extends React.Component {
           }
           <div className="col s12 l12 mb-two-rem mt-one-rem justify-between align-center">
             <a href={alternateActionHref} className="bold">
-              {alternatActionText}
+              {alternateActionText}
             </a>
             <a onClick={this.handleDemo} className="click-target bold">
               {demoIcon}

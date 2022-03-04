@@ -171,8 +171,8 @@ class BlogView extends React.Component {
                 <div className="col s12 l6 flex-wrap">
                   <blockquote className="blockquote-color"><em>{summary}</em></blockquote>
                   <h2 className="width-100">{title}</h2>
-                  <h3 className="light-grey-text width-100">by {username}</h3>
-                  <h3 className="light-grey-text mb-one-rem width-100">posted on {formattedDate}</h3>
+                  <h3 className="blue-grey-text text-lighten-2 width-100">by {username}</h3>
+                  <h3 className="blue-grey-text text-lighten-2 width-100">posted on {formattedDate}</h3>
                   <div className="col s6 l6 share-btn pr-half-rem mt-one-rem">
                     {!this.state.emailBtnClicked
                       ? (
@@ -183,12 +183,12 @@ class BlogView extends React.Component {
                       : <>
                         {this.props.user
                           ? (
-                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100'>
+                            <a onClick={this.emailPost} className='teal waves-effect waves-light btn-large width-100'>
                               <i className="fas fa-envelope-open share-icon"></i>
                             </a>
                             )
                           : (
-                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red lighten-1'>
+                            <a onClick={this.emailPost} className='waves-effect waves-light btn-large width-100 red darken-2'>
                               <i className="fas fa-envelope share-icon"></i>
                             </a>
                             )
@@ -206,7 +206,7 @@ class BlogView extends React.Component {
                   <p>{body}</p>
                 </div>
               </div>
-              <hr className="mb-one-rem" />
+              <hr className="mb-one-half" />
               <div className="row">
                 <div className="justify-between align-center plr-three-fourth">
                   <div>
@@ -216,7 +216,7 @@ class BlogView extends React.Component {
                               <i className="far fa-heart"></i>
                               </a>
                             : <a onClick={this.toggleLike} className="font-two-rem mr-third-rem click-target">
-                              <i className="fas fa-heart red-icon"></i>
+                              <i className="fas fa-heart red-text text-darken-2"></i>
                               </a>
                           )
                         : <i className="fas fa-heart-broken grey-text mr-third-rem font-two-rem"></i>

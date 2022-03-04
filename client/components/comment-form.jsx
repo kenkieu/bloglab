@@ -18,7 +18,7 @@ class CommentForm extends React.Component {
         <form onSubmit={this.handleSubmit} >
           <div className="input-field col s12 l12">
             <input required onChange={this.handleChange} id="comment" type="text" name="content" value={this.state.content} />
-            <label htmlFor="comment">Leave a comment if you&apos;d like...</label>
+            <label className="blue-grey-text text-lighten-2" htmlFor="comment">Leave a comment if you&apos;d like...</label>
           </div>
           <div className="col s12 l12 width-100">
             <button className="btn-large blue darken-2 width-100 mb-two-rem" type="submit" name="action">Submit</button>

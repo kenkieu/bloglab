@@ -88,12 +88,12 @@ class Home extends React.Component {
               ? <NoResults user={this.props.user} />
               : (
                 <>
-                {this.props.user && <div className="row width-100">
+                {this.props.user && <div className="row width-100 mb-two-rem">
                   <div className="col s6 l6">
-                    <a href="#form" className="mb-one-rem btn-large blue darken-2 width-100 waves-effect waves-light">NEW POST</a>
+                    <a href="#form" className="btn-large blue darken-2 width-100 waves-effect waves-light">NEW POST</a>
                   </div>
                   <div className="col s6 s6">
-                    <a onClick={this.togglePosts} className="mb-one-rem btn-large grey darken-4 width-100 waves-effect waves-light">{btnText}</a>
+                    <a onClick={this.togglePosts} className="btn-large grey darken-4 width-100 waves-effect waves-light">{btnText}</a>
                   </div>
                 </div>
                 }
@@ -134,7 +134,7 @@ function Post(props) {
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
-        <p className="card-username">by {username}</p>
+        <p className="card-username blue-grey-text text-lighten-2">by {username}</p>
         <p className="card-summary">{summary}</p>
       </div>
     </div>
