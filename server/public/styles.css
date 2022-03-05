@@ -4,7 +4,9 @@ body {
 }
 
 nav {
+  padding: 0 2rem;
   margin-bottom: 3rem;
+  font-weight: 600;
 }
 
 h1,
@@ -24,10 +26,6 @@ a {
   color: #212121;
 }
 
-.grey-text {
-  color: #bdbdbd;
-}
-
 .btn-large,
 .btn {
   border-radius: 0.75rem;
@@ -36,7 +34,8 @@ a {
 }
 
 .btn-large:hover,
-.btn:hover {
+.btn:hover,
+a:hover {
   opacity: 90%;
 }
 
@@ -140,10 +139,6 @@ a {
   margin-left: 0.75rem;
 }
 
-.mr-one-rem {
-  margin-right: 1rem;
-}
-
 .click-target {
   cursor: pointer;
 }
@@ -152,19 +147,11 @@ a {
 
 .brand-logo {
   font-size: 1.75rem !important;
-  font-weight: 600;
   font-style: italic;
 }
 
 .nav-icon {
   font-size: 1.75rem;
-  margin-right: 1rem;
-}
-
-.brand-logo:hover,
-.nav-icon:hover,
-.nav-link:hover {
-  color: #e7e7e7;
 }
 
 .blockquote-color {
