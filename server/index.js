@@ -20,7 +20,6 @@ const app = express();
 app.use(staticMiddleware);
 
 const jsonMiddleware = express.json();
-
 app.use(jsonMiddleware);
 
 app.post('/api/auth/sign-up', (req, res, next) => {
