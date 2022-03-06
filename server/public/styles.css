@@ -229,7 +229,7 @@ a:hover {
 .card-summary {
   font-size: 0.9rem !important;
   display: -webkit-box; /* stylelint-disable-line */
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -262,4 +262,10 @@ a:hover {
 .custom-modal .footer {
   padding: 1.2rem;
   text-align: center;
+}
+
+@media screen and (min-device-width: 993px) {
+  .card-summary {
+  -webkit-line-clamp: 4; /* stylelint-disable-line */
+  }
 }
