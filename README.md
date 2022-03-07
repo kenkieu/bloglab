@@ -59,8 +59,8 @@ Try the application live at [https://lfz-bloglab.herokuapp.com/](https://lfz-blo
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/kenkieu/final-project.git
-    cd final-project
+    git clone https://github.com/kenkieu/bloglab.git
+    cd bloglab
     ```
 
 1. Copy the env.example file, and edit all placeholder "changeMe" values.
