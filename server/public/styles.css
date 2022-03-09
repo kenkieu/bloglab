@@ -20,6 +20,11 @@ h1 {
   margin: 0 0 1.5rem;
 }
 
+h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
 /* Color */
 
 a {
@@ -170,11 +175,6 @@ a:hover {
   margin: 0.5rem 0 0;
 }
 
-.blogpost h2 {
-  font-size: 1.4rem;
-  margin: 0;
-}
-
 .comment-time-ago {
   font-size: 0.9rem;
   margin-left: 1rem;
@@ -198,8 +198,8 @@ a:hover {
   border-radius: 0.75rem;
 }
 
-.no-connection img {
-  width: 60%;
+.no-connection {
+  height: 80vh;
 }
 
 .no-results img {

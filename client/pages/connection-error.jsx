@@ -1,14 +1,21 @@
 import React from 'react';
 
+function reloadPage() {
+  window.location.reload(true);
+}
+
 export default function ConnectionError(props) {
   return (
-    <div className="container no-connection">
-      <div className="row flex-wrap" >
-        <div className="col s12 l12 text-center">
-          <h1 className="font-two-rem">
-            Oops, looks like your internet is out. Please try again later!
-          </h1>
+    <div className="container no-connection align-center">
+      <div className="row text-center align-items blue-grey-text text-lighten-2 width-100">
+        <div className='mb-one-rem '>
+          <i className="material-icons medium">signal_wifi_off</i>
         </div>
+        <h2 className=''>
+          Oops, looks like your internet is out.
+        </h2>
+        <p>Try reloading the page!</p>
+        <button onClick={reloadPage} className="btn teal btn-large width-100 mt-two-rem">Reload</button>
       </div>
     </div>
   );
