@@ -126,11 +126,10 @@ function Post(props) {
   const { postId, imageUrl, summary, title, username } = props.post;
   return (
   <>
-    <div className="card large hoverable">
+  <a href={`#post?postId=${postId}`}>
+    <div className="card medium hoverable">
       <div className="card-image">
-        <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
-        </a>
       </div>
       <div className="card-content">
         <span className="card-title">{title}</span>
@@ -138,6 +137,7 @@ function Post(props) {
         <p className="card-summary">{summary}</p>
       </div>
     </div>
+  </a>
     </>
   );
 }
@@ -146,12 +146,12 @@ function MyPost(props) {
   const { postId, imageUrl, summary, title, username } = props.userPost;
   return (
   <>
-    <div className="card large">
+    <div className="card medium hoverable">
       <div className="card-image">
         <a href={`#post?postId=${postId}`}>
           <img src={imageUrl} alt="card-image" />
         </a>
-        <a href={`#edit-post?postId=${postId}`} className="btn-floating btn halfway-fab waves-effect waves-light blue darken-2">
+        <a href={`#edit-post?postId=${postId}`} className="btn-floating pulse btn halfway-fab waves-effect waves-light grey darken-4">
           <i className="material-icons">edit</i>
         </a>
       </div>
