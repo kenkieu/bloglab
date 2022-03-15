@@ -43,7 +43,11 @@ class CommentPage extends React.Component {
                   <i className="material-icons">comment</i>
                   </div>
                   <h2 className='mt-one-rem width-100'>No Comments Yet</h2>
-                  <p className='width-100'>Be the first to share what you think!</p>
+                  {this.props.user
+                    ? <p className='width-100'>Be the first to share what you think!</p>
+                    : <p className='width-100'>
+                      <a href="#sign-in" className='blue-grey-text text-lighten-2 underline'>Log in</a> to share what you think!</p>
+                  }
                 </div>
                   )
                 : <CommentList comments={this.state.comments} postId={this.props.postId} />

@@ -130,10 +130,10 @@ class AuthForm extends React.Component {
           </div>
           }
           <div className="col s12 l12 mb-two-rem mt-one-rem justify-between align-center">
-            <a href={alternateActionHref} className="bold">
+            <a href={alternateActionHref} className="bold underline">
               {alternateActionText}
             </a>
-            <a onClick={this.handleDemo} className="click-target bold">
+            <a onClick={this.handleDemo} className="click-target bold underline">
               {demoIcon}
             </a>
           </div>

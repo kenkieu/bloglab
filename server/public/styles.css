@@ -189,7 +189,7 @@ a:hover {
   padding: 1.35rem 0.7rem !important;
 }
 
-.auth-form a {
+.underline {
   text-decoration: underline;
 }
 
@@ -218,8 +218,9 @@ a:hover {
   border-top-right-radius: 0.5rem;
 }
 
-.card.large {
-  border-radius: 0.5rem;
+.card.medium {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .btn-floating {
@@ -235,7 +236,7 @@ a:hover {
 .card-summary {
   font-size: 0.9rem !important;
   display: -webkit-box; /* stylelint-disable-line */
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -270,8 +271,8 @@ a:hover {
   text-align: center;
 }
 
-@media screen and (min-device-width: 993px) {
-  .card-summary {
-  -webkit-line-clamp: 4; /* stylelint-disable-line */
+@media screen and (min-device-width: 601px) {
+  .card.medium {
+    height: 500px;
   }
 }
