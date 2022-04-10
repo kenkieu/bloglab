@@ -207,6 +207,10 @@ a:hover {
   width: 195px;
 }
 
+.no-results h1 {
+  margin: 1rem 0 0;
+}
+
 .not-found .btn-large,
 .no-results .btn-large {
   margin: 3rem 0 2.5rem;

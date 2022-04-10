@@ -13,7 +13,7 @@ class NoResults extends React.Component {
         </h1>
         {this.props.user
           ? <a href="#form" className="btn-large blue darken-2 waves-effect waves-light">NEW POST</a>
-          : <a className="disabled btn-large blue darken-2 waves-effect waves-light">NEW POST</a>
+          : <a className="disabled btn-large blue darken-2 waves-effect waves-light width-100">NEW POST</a>
         }
       </div>
     </div>

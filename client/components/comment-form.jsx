@@ -44,8 +44,7 @@ class CommentForm extends React.Component {
   }
 
   handleChange(event) {
-    const value = event.target.value;
-    this.setState({ [event.target.name]: value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
