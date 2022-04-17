@@ -8,6 +8,7 @@ class BlogView extends React.Component {
     super(props);
     this.state = {
       emailBtnClicked: false,
+      linkBtnClicked: false,
       post: {},
       viewerEmail: '',
       loading: false,
@@ -108,6 +109,7 @@ class BlogView extends React.Component {
   }
 
   copyPageUrl() {
+    this.setState({ linkBtnClicked: true });
     navigator.clipboard.writeText(window.location.href)
       .catch(err => console.error('Failed to copy:', err));
   }
@@ -184,7 +186,8 @@ class BlogView extends React.Component {
                         {this.props.user
                           ? (
                             <a onClick={this.emailPost} className='teal waves-effect waves-light btn-large width-100'>
-                              <i className="fas fa-envelope-open share-icon"></i>
+                              Email Sent
+                              {/* <i className="fas fa-envelope-open share-icon"></i> */}
                             </a>
                             )
                           : (
@@ -198,7 +201,10 @@ class BlogView extends React.Component {
                   </div>
                   <div onClick={this.copyPageUrl} className="col s6 l6 share-btn pl-half-rem mt-one-rem">
                     <a className="waves-effect waves-light btn-large width-100 share-btn grey darken-4">
-                      <i className="fas fa-link share-icon"></i>
+                      {!this.state.linkBtnClicked
+                        ? <i className="fas fa-link share-icon"></i>
+                        : <span>Link Copied</span>
+                     }
                     </a>
                   </div>
                 </div>
