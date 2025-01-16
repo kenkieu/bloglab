@@ -10,10 +10,10 @@ const authorizationMiddleware = require('./authorization-middleware');
 const ClientError = require('./client-error');
 
 const db = new pg.Pool({
-  connectionString: `${process.env.DATABASE_URL}?sslmode=disable`
-  // ssl: {
-  //   rejectUnauthorized: false
-  // }
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 const app = express();
