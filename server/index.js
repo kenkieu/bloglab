@@ -1,5 +1,6 @@
+// const pg = require('pg');
+import { Pool } from 'pg';
 require('dotenv/config');
-const pg = require('pg');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -9,8 +10,15 @@ const staticMiddleware = require('./static-middleware');
 const authorizationMiddleware = require('./authorization-middleware');
 const ClientError = require('./client-error');
 
-const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
+// const db = new pg.Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
+
+const db = new Pool({
+  connectionString: `${process.env.DATABASE_URL}?sslmode=require`,
   ssl: {
     rejectUnauthorized: false
   }
