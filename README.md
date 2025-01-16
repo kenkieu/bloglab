@@ -58,31 +58,34 @@ Try the application live at [https://lfz-bloglab.herokuapp.com/](https://lfz-blo
 
 1. Clone the repository.
 
-    ```shell
-    git clone https://github.com/kenkieu/bloglab.git
-    cd bloglab
-    ```
+   ```shell
+   git clone https://github.com/kenkieu/bloglab.git
+   cd bloglab
+   ```
 
 1. Copy the env.example file, and edit all placeholder "changeMe" values.
 
-    ```shell
-    cp .env.example .env
-    ```
+   ```shell
+   cp .env.example .env
+   ```
 
 1. Install all dependencies with NPM.
 
-    ```shell
-    npm install
-    ```
+   ```shell
+   npm install
+   ```
 
 1. Import the schema and data to the PostgreSQL database. Please note that running this command will drop the existing database (if one currently exists).
 
-    ```shell
-    npm run db:import
-    ```
+   ```shell
+   brew services start postgresql@14
+   createdb blogdb
+   psql -U <user> -d <database> -h <host>
+   npm run db:import
+   ```
 
 1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
-    ```shell
-    npm run dev
-    ```
+   ```shell
+   npm run dev
+   ```
