@@ -19,72 +19,136 @@ class EditForm extends React.Component {
 
   render() {
     const { imageUrl, summary, title, body, modalOpen } = this.state;
-    const { handleChange, handleSubmit, handleDelete, closeModal, openModal } = this;
-    return <>
-      {modalOpen &&
-      <div className="container">
-        <div className="row modal-bg flex-center align-center">
-          <div className="custom-modal">
-            <div className="body">
-              <h4>Are you sure?</h4>
-              <p>Do you really want to delete this post? This action cannot be undone.</p>
-            </div>
-            <div className="justify-between footer">
-              <a onClick={closeModal} className="modal-close waves-effect waves-gray btn-flat">Cancel</a>
-              <a onClick={handleDelete} href="#" className="modal-close waves-effect waves-red btn-flat red-text text-darken-2">Delete</a>
+    const { handleChange, handleSubmit, handleDelete, closeModal, openModal } =
+      this;
+    return (
+      <>
+        {modalOpen && (
+          <div className="container">
+            <div className="row modal-bg flex-center align-center">
+              <div className="custom-modal">
+                <div className="body">
+                  <h4>Are you sure?</h4>
+                  <p>
+                    Do you really want to delete this post? This action cannot
+                    be undone.
+                  </p>
+                </div>
+                <div className="justify-between footer">
+                  <a
+                    onClick={closeModal}
+                    className="modal-close waves-effect waves-gray btn-flat"
+                  >
+                    Cancel
+                  </a>
+                  <a
+                    onClick={handleDelete}
+                    href="#"
+                    className="modal-close waves-effect waves-red btn-flat red-text text-darken-2"
+                  >
+                    Delete
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      }
-      <div className="container edit-form">
-        <div className="row">
-          <div className="col s12 justify-between align-center mt-half-rem">
-            <h1 className="m-0">Edit Blog</h1>
-            <a onClick={openModal} className="waves-effect waves-light btn modal-trigger red darken-2 trash-btn flex-center align-center">
-              <i className="material-icons trash-icon">delete</i>
-            </a>
-          </div>
-        </div>
-        <form onSubmit={handleSubmit} className="mt-two-rem">
+        )}
+        <div className="container edit-form">
           <div className="row">
-            <div className="col s12 l6">
-              <img className="width-100" src={!imageUrl ? 'images/placeholder.png' : imageUrl} alt="image" />
-            </div>
-            <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={handleChange} id="image-url" type="text" name="imageUrl" value={imageUrl}/>
-              <label htmlFor="image-url">Image URL</label>
-            </div>
-            <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={handleChange} id="title" type="text" name="title" value={title}/>
-              <label htmlFor="title">Title</label>
-            </div>
-            <div className="input-field col s12 l6 mb-two-rem">
-              <input required onChange={handleChange} id="summary" type="text" name="summary" value={summary}/>
-              <label htmlFor="summary">Summary</label>
-            </div>
-            <div className="row">
-              <div className="input-field col s12 l12 mb-two-rem">
-                <textarea required onChange={handleChange} id="body" name="body" className="materialize-textarea" value={body}></textarea>
-                <label htmlFor="body">Body</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col s6">
-                <a href="#" className="btn teal waves-effect waves-light grey darken-2">Cancel
-                  <i className="material-icons right">cancel</i>
-                </a>
-              </div>
-              <div className="col s6 flex-end">
-                <button className="btn teal waves-effect waves-light" type="submit">Save
-                  <i className="material-icons right">save</i>
-                </button>
-              </div>
+            <div className="col s12 align-center mt-half-rem justify-between">
+              <h1 className="m-0">Edit Blog</h1>
+              <a
+                onClick={openModal}
+                style={{
+                  textDecoration: 'underline'
+                }}
+                className="align-center waves-effect waves-light modal-trigger darken-2 gap-half"
+              >
+                <span style={{ fontWeight: 'bold' }}>DELETE</span>
+                <i className="material-icons trash-icon">delete</i>
+              </a>
             </div>
           </div>
-        </form>
-      </div>
-    </>;
+          <form onSubmit={handleSubmit} className="mt-two-rem">
+            <div className="row">
+              <div className="col s12 l6">
+                <img
+                  className="width-100"
+                  src={!imageUrl ? 'images/placeholder.png' : imageUrl}
+                  alt="image"
+                />
+              </div>
+              <div className="input-field col s12 l6 mb-two-rem">
+                <input
+                  required
+                  onChange={handleChange}
+                  id="image-url"
+                  type="text"
+                  name="imageUrl"
+                  value={imageUrl}
+                />
+                <label htmlFor="image-url">Image URL</label>
+              </div>
+              <div className="input-field col s12 l6 mb-two-rem">
+                <input
+                  required
+                  onChange={handleChange}
+                  id="title"
+                  type="text"
+                  name="title"
+                  value={title}
+                />
+                <label htmlFor="title">Title</label>
+              </div>
+              <div className="input-field col s12 l6 mb-two-rem">
+                <input
+                  required
+                  onChange={handleChange}
+                  id="summary"
+                  type="text"
+                  name="summary"
+                  value={summary}
+                />
+                <label htmlFor="summary">Summary</label>
+              </div>
+              <div className="row">
+                <div className="input-field col s12 l12 mb-two-rem">
+                  <textarea
+                    required
+                    onChange={handleChange}
+                    id="body"
+                    name="body"
+                    className="materialize-textarea"
+                    value={body}
+                  ></textarea>
+                  <label htmlFor="body">Body</label>
+                </div>
+              </div>
+              <div className="row flex-end">
+                <div className="col">
+                  <a
+                    href="#"
+                    className="btn teal waves-effect waves-light grey darken-2"
+                  >
+                    Cancel
+                    <i className="material-icons right">cancel</i>
+                  </a>
+                </div>
+                <div className="col">
+                  <button
+                    className="btn teal waves-effect waves-light"
+                    type="submit"
+                  >
+                    Save
+                    <i className="material-icons right">save</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </>
+    );
   }
 
   componentDidMount() {
@@ -92,14 +156,17 @@ class EditForm extends React.Component {
       .then(res => res.json())
       .then(post => {
         const { imageUrl, summary, title, body } = post;
-        this.setState({
-          imageUrl: imageUrl,
-          summary: summary,
-          title: title,
-          body: body
-        }, () => {
-          M.updateTextFields();
-        });
+        this.setState(
+          {
+            imageUrl: imageUrl,
+            summary: summary,
+            title: title,
+            body: body
+          },
+          () => {
+            M.updateTextFields();
+          }
+        );
       })
       .catch(err => console.error(err));
   }
@@ -146,8 +213,9 @@ class EditForm extends React.Component {
         'x-access-token': jwt
       }
     };
-    fetch(`/api/posts/${this.props.postId}`, req)
-      .catch(err => console.error(err));
+    fetch(`/api/posts/${this.props.postId}`, req).catch(err =>
+      console.error(err)
+    );
   }
 }
 

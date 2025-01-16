@@ -16,12 +16,12 @@ h3 {
 }
 
 h1 {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   margin: 0 0 1.5rem;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   margin: 0;
 }
 
@@ -60,6 +60,10 @@ a:hover {
 
 .pr-half-rem {
   padding: 0 0.5rem 0 0 !important;
+}
+
+.gap-half {
+  gap: 0.5rem;
 }
 
 .m-0 {
@@ -151,12 +155,12 @@ a:hover {
 /* Semantic Classes */
 
 .brand-logo {
-  font-size: 1.75rem !important;
+  font-size: 1.5rem !important;
   font-style: italic;
 }
 
 .nav-icon {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .blockquote-color {
@@ -165,13 +169,13 @@ a:hover {
 
 .blogpost p,
 .blogpost blockquote {
-  font-size: 0.975rem;
-  line-height: 2.25rem;
+  font-size: 1rem;
+  line-height: 2rem;
   white-space: pre-wrap;
 }
 
 .blogpost h3 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0.5rem 0 0;
 }
 
@@ -181,7 +185,7 @@ a:hover {
 }
 
 .share-icon {
-  font-size: 2rem !important;
+  font-size: 1.5rem !important;
 }
 
 .trash-btn {
@@ -220,6 +224,7 @@ a:hover {
   min-height: 90px;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  overflow: hidden !important;
 }
 
 .card.medium {
@@ -233,8 +238,7 @@ a:hover {
 }
 
 .card-title {
-  font-size: 1.4rem !important;
-  margin-bottom: 0 !important;
+  font-size: 1.5rem !important;
 }
 
 .card-summary {
@@ -248,8 +252,8 @@ a:hover {
 .card-username {
   color: #b0bec5;
   font-weight: 500;
-  font-size: 1rem;
-  margin-bottom: 0.75rem !important;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem !important;
 }
 
 .modal-bg {

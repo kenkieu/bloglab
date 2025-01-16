@@ -17,7 +17,7 @@
 }
 
 @media only screen and (min-width: 1200px) {
-  .blogpost p,
+  /* .blogpost p,
   .blockquote-color {
     font-size: 1rem;
   }
@@ -28,7 +28,7 @@
 
   .blogpost h2 {
     font-size: 1.45rem;
-  }
+  } */
 
   .pad-l-half-rem {
     padding: 0 0 0 1rem !important;
