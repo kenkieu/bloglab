@@ -1,5 +1,5 @@
 // const pg = require('pg');
-import { Pool } from 'pg';
+const { Pool } = require('pg');
 require('dotenv/config');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
@@ -18,7 +18,7 @@ const ClientError = require('./client-error');
 // });
 
 const db = new Pool({
-  connectionString: `${process.env.DATABASE_URL}?sslmode=require`,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
