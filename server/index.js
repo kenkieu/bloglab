@@ -198,6 +198,12 @@ app.delete('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
 });
 
 app.get('/api/posts', (req, res, next) => {
+
+  res.set({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  });
+
   const sql = `
     select "postId",
            "imageUrl",
