@@ -31,6 +31,8 @@ app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
+app.get('/api/testing', (req, res) => res.send('Express on Vercel'));
+
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password, email } = req.body;
   if (!username || !password || !email) {
