@@ -25,6 +25,7 @@ const db = new Pool({
 });
 
 const app = express();
+
 app.use(staticMiddleware);
 
 const jsonMiddleware = express.json();
@@ -198,12 +199,6 @@ app.delete('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
 });
 
 app.get('/api/posts', (req, res, next) => {
-
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true
-  });
-
   const sql = `
     select "postId",
            "imageUrl",
@@ -217,7 +212,9 @@ app.get('/api/posts', (req, res, next) => {
     order by "postId" desc
   `;
   db.query(sql)
-    .then(result => res.json(result.rows))
+    .then(result => {
+      res.json(result.rows);
+    })
     .catch(err => next(err));
 });
 
