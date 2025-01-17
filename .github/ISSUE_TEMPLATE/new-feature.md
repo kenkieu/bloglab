@@ -39,7 +39,7 @@ title: "Feature: User can "
 <!-- add as many items as you need -->
 <!-- delete this section if not applicable -->
 
-- [ ] Update `server/index.js` to ...
+- [ ] Update `api/index.js` to ...
 - [ ] Test with HTTPie
 - [ ] Handle all errors and respond to the client
 
