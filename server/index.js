@@ -200,8 +200,8 @@ app.delete('/api/posts/:postId', authorizationMiddleware, (req, res, next) => {
 app.get('/api/posts', (req, res, next) => {
 
   res.set({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true
   });
 
   const sql = `
