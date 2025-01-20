@@ -1,4 +1,3 @@
-// const pg = require('pg');
 const { Pool } = require('pg');
 require('dotenv/config');
 const argon2 = require('argon2');
@@ -9,13 +8,6 @@ const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const authorizationMiddleware = require('./authorization-middleware');
 const ClientError = require('./client-error');
-
-// const db = new pg.Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false
-//   }
-// });
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -31,7 +23,7 @@ app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
-// app.get('/api/testing', (req, res) => res.send('Express on Vercel'));
+app.get('/api/testing', (req, res) => res.send('Express on Vercel'));
 
 app.post('/api/auth/sign-up', (req, res, next) => {
   const { username, password, email } = req.body;
