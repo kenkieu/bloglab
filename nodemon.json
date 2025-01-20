@@ -1,4 +1,4 @@
 {
   "watch": [".env", "api/"],
-  "ignore": ["api/public/"]
+  "ignore": ["public/"]
 }
