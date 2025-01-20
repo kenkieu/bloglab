@@ -87,7 +87,7 @@ class EditForm extends React.Component {
                   name="imageUrl"
                   value={imageUrl}
                 />
-                <label htmlFor="image-url">Image URL</label>
+                <label htmlFor="image-url">Image Address</label>
               </div>
               <div className="input-field col s12 l6 mb-two-rem">
                 <input
