@@ -283,6 +283,10 @@ a:hover {
   display: none;
 }
 
+textarea.materialize-textarea {
+  min-height: 10rem;
+}
+
 @media screen and (min-device-width: 601px) {
   .card.medium {
     height: 500px;
@@ -290,5 +294,6 @@ a:hover {
 
   .home-cta {
     display: block;
+    height: 100%;
   }
 }
