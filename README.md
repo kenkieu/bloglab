@@ -21,7 +21,7 @@ I built bloglab because one of my many hobbies is traveling. Creating bloglab wa
 
 ## Live Demo
 
-Try the application live at [https://lfz-bloglab.herokuapp.com/](https://lfz-bloglab.herokuapp.com/)
+Try the application live at [https://bloglab-dev.vercel.app/](https://bloglab-dev.vercel.app/)
 
 ## Features
 
